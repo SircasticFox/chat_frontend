@@ -20,6 +20,5 @@
     socket.onmessage = function (event) {
         //new message from server
     };
-
-
+//test
 })();
