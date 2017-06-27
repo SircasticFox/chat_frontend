@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="chat">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
 
-
+    <link rel="stylesheet prefetch" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-
+<body ng-app="chat" layout="row" ng-cloak>
+<!-- UI-->
+<md-sidenav layout="column" class="sidenav1" md-is-locked-open='true'>
+    SideNav
+</md-sidenav>
+<md-content flex layout="column">
+    <ng-view>
+        View Content
+    </ng-view>
+</md-content>
 
 <!-- Angularjs Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>

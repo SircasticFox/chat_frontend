@@ -1,0 +1,12 @@
+md-sidenav  {
+    width: 110px;
+    height:100%;
+    padding:20px;
+    background-color: #6bc7cc;
+}
+
+md-content {
+    height:100%;
+    padding:20px;
+    background-color : tan;
+}
