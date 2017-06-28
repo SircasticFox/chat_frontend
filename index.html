@@ -8,22 +8,32 @@
     <link rel="stylesheet prefetch" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body ng-app="chat" ng-cloak>
+<body ng-app="chat" ng-controller="chatController as chatCtrl" ng-cloak>
 <!-- Main Container for the whole Window-->
 <div id="mainContainer">
     <!-- Navigation Container -->
     <div id="roomContainer">
-
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-3-line" ng-repeat="room in chatCtrl.rooms" ng-click="null">
+                    <img ng-src="assets/ic_chat_black_48px.svg" class="md-avatar" alt="test" />
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{room.room}}</h3>
+                        <h4>{{room.lastUser}}</h4>
+                        <p>{{room.lastMessage}}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
     </div>
 
     <!-- Chat Box Container-->
     <div id="chatContainer">
+        <div id="chatHeader">
+            <div class="name">Chat Assignment</div>
+            <div class="members"><b>You</b> & David</div>
+        </div>
         <div id="messagesContainer">
-            <div class="chatHeader">
-                <div class="name">Chat Assignment</div>
-                <div class="members"><b>You</b> & David</div>
-            </div>
-
             <ol class="chat">
                 <li class="other">
                     <div class="msg">
@@ -165,7 +175,6 @@
                     <md-icon md-svg-icon="assets/ic_send_black_48px.svg"></md-icon>
                 </md-button>
             </form>
-            <div class="emojis"></div>
         </div>
 
     </div>

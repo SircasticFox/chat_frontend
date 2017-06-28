@@ -53,16 +53,25 @@
 
     var dummyRooms = [
         {
-            room: "Lobby"
+            room: "Lobby",
+            lastUser: "User1",
+            lastMessage: "test"
         },
         {
-            room: "Room 1"
+            room: "Room 1",
+            lastUser: "User2",
+            lastMessage: "test2"
         },
         {
-            room: "Room 2"
+            room: "Room 2",
+            lastUser: "User3",
+            lastMessage: "test3"
         },
         {
-            room: "Room 3"
+            room: "Room 3",
+            lastUser: "User3",
+            lastMessage: "test3"
         }
     ];
+
 })();
