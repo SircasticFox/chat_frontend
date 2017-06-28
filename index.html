@@ -4,21 +4,173 @@
     <meta charset="UTF-8">
     <title>Chat</title>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet prefetch" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body ng-app="chat" layout="row" ng-cloak>
-<!-- UI-->
-<div flex="20" layout="column" class="boxWithHeight" layout-padding>
-    flex="30"
-    <section flex="40">flex="40"</section>
-    <section flex>flex</section>
-</div>
-<div flex layout="column" class="boxWithHeight" layout-padding>
-    flex
-    <section flex="70">flex="70"</section>
-    <section flex="20">flex="20"</section>
-    <section flex>flex </section>
+<body ng-app="chat" ng-cloak>
+<!-- Main Container for the whole Window-->
+<div id="mainContainer">
+    <!-- Navigation Container -->
+    <div id="roomContainer">
+
+    </div>
+
+    <!-- Chat Box Container-->
+    <div id="chatContainer">
+        <div id="messagesContainer">
+            <div class="chatHeader">
+                <div class="name">Chat Assignment</div>
+                <div class="members"><b>You</b> & David</div>
+            </div>
+
+            <ol class="chat">
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">User1<span class="range admin">Admin</span></div>
+                        <p>Dude</p>
+                        <p>Want to go dinner? <emoji class="pizza"></emoji></p>
+                        <time>20:17</time>
+                    </div>
+                </li>
+                <li class="self">
+                    <div class="msg">
+                        <p>Puff...</p>
+                        <p>I'm still doing the Góngora comment... <emoji class="books"></emoji></p>
+                        <p>Better other day</p>
+                        <time>20:18</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">User2</div>
+                        <p>What comment about Góngora? <emoji class="suffocated"></emoji></p>
+                        <time>20:18</time>
+                    </div>
+                </li>
+                <li class="self">
+                    <div class="msg">
+                        <p>The comment sent Marialu</p>
+                        <p>It's for tomorrow</p>
+                        <time>20:18</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">User2</div>
+                        <p><emoji class="scream"></emoji></p>
+                        <p>Hand it to me! <emoji class="please"></emoji></p>
+                        <time>20:18</time>
+                    </div>
+                </li>
+                <li class="self">
+                    <div class="msg">
+                        <img src="https://i.imgur.com/kUPxcsI.jpg" draggable="false"/>
+                        <time>20:19</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">User2</div>
+                        <p>Thank you! <emoji class="hearth_blue"></emoji></p>
+                        <time>20:20</time>
+                    </div>
+                </li>
+                <div class="day">Today</div>
+                <li class="self">
+                    <div class="msg">
+                        <p>Who wants to play Minecraft?</p>
+                        <time>18:03</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">Andreas</div>
+                        <p>Come on, I didn't play it for four months</p>
+                        <time>18:07</time>
+                    </div>
+                </li>
+                <li class="self">
+                    <div class="msg">
+                        <p>Ehh, the launcher crash... <emoji class="cryalot"></emoji></p>
+                        <time>18:08</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">Andreas</div>
+                        <p><emoji class="lmao"></emoji></p>
+                        <p>Sure that is the base code</p>
+                        <p>I told it to Mojang</p>
+                        <time>18:08</time>
+                    </div>
+                </li>
+                <li class="self">
+                    <div class="msg">
+                        <p>It's a joke</p>
+                        <p>Moai attack!</p>
+                        <p><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji></p>
+                        <time>18:10</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">Andreas</div>
+                        <p>XD</p>
+                        <p><emoji class="funny"></emoji></p>
+                        <p>Heart for this awesome design!</p>
+                        <time>18:08</time>
+                    </div>
+                </li>
+                <p class="notification">David joined the group <time>18:09</time></p>
+                <li class="self">
+                    <div class="msg">
+                        <p>Heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellooooooooooooooooooooooooooooooo David <emoji class="smile"/></p>
+                        <time>18:09</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">David</div>
+                        <p>What is that <emoji class="shit"></emoji> ?</p>
+                        <time>18:10</time>
+                    </div>
+                </li>
+                <p class="notification">David left the group <time>18:11</time></p>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">User2</div>
+                        <p>Lol?</p>
+                        <time>18:12</time>
+                    </div>
+                </li>
+                <li class="other">
+                    <div class="msg">
+                        <div class="user">User1<span class="range admin">Admin</span></div>
+                        <p>I'm boring...</p>
+                        <p>Who wants to do some logarithms? <emoji class="smile"></emoji></p>
+                        <time>18:15</time>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div id="inputContainer">
+            <form name="chat-input">
+                <!-- Input -->
+                <md-input-container id="input_message">
+                    <input  required>
+                </md-input-container>
+                <!-- Button with SVG Icon -->
+                <md-button id="button_send" class="md-icon-button send" aria-label="Send">
+                    <md-icon md-svg-icon="assets/ic_send_black_48px.svg"></md-icon>
+                </md-button>
+            </form>
+            <div class="emojis"></div>
+        </div>
+
+    </div>
+
+
 </div>
 
 <!-- Angularjs Libraries -->
