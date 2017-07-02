@@ -149,5 +149,51 @@
 
     }
 
-})();
 
+
+    function refreshAllRooms(){
+        var payload = {
+            "action": "getChatRooms"
+        }
+        var jString = JSON.stringify(payload);
+        console.log(jString);
+
+        socket.send(jString);
+    };
+
+    function refreshUsersInRoom(roomId) {
+        var payload = {
+            "action": "getUsersInRoom",
+            "roomId": roomId
+        }
+        socket.send(JSON.stringify(payload));
+
+    }
+
+    function postPrivateMessage(targetUID, user_source, message){
+        var content = {
+            "action": "postPrivateMessage",
+            "userId": targetUID,
+            "user": user_source,
+            "message": message,
+            "meta": { "foo": "bar"} // additional data to pass
+        }
+        console.log(JSON.stringify(content));
+        socket.send(JSON.stringify(content));
+
+    }
+
+    function postPublicMessage(roomId, user_source, message){
+        var content = {
+            "action": "postMessage",
+            "roomId": roomId,
+            "user": user_source,
+            "message": message,
+            "meta": { "foo": "bar"} // additional data to pass
+        }
+        console.log(JSON.stringify(content));
+        socket.send(JSON.stringify(content));
+    }
+
+
+})();
