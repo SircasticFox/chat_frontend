@@ -2,15 +2,6 @@ html {
     font-family: 'Roboto', serif;
 }
 
-#mainContainer {
-    width: 100%;
-}
-
-#roomContainer {
-    width: 300px;
-    height: 100%;
-}
-
 #chat-content {
     width: 100%;
 }
