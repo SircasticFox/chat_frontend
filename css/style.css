@@ -1,0 +1,21 @@
+html, body {
+    font-family: 'Roboto', serif;
+}
+
+#chat-content {
+    width: 100%;
+}
+
+.circle {
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #6aea96;
+    text-align: center;
+    font-size: 24pt;
+}
+
+.align-right{
+    text-align: right;
+    float: right;
+}

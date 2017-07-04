@@ -3,32 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-    <link rel="stylesheet" href="css/custom.css">
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet prefetch" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body ng-app="chat" layout="row" ng-cloak>
+<body ng-app="chat" ng-controller="chatController as chatCtrl" ng-cloak layout="row">
 
-    <md-sidenav layout="column" class="sidenav1" md-is-locked-open='true'>
+<div layout="column" flex>
+    <!-- Chat Toolbar at the top -->
+    <chat-toolbar></chat-toolbar>
 
-    </md-sidenav>
+    <!-- Main screen -->
+    <div id="mainContainer" flex layout="row">
+        <!-- Sidebar -->
+        <chat-sidebar layout="column"></chat-sidebar>
+        <chat-area layout="column" flex></chat-area>
+    </div>
+</div>
 
-    <md-content flex layout="column">
-        <ng-view>
 
-        </ng-view>
-    </md-content>
+<!-- Angularjs Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
-
-
-    <!-- Angularjs Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-
-    <!-- Javascript -->
-    <script type="text/javascript" src="js/app.js"></script>
+<!-- Javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/customDirectives.js"></script>
 
 </body>
 </html>
