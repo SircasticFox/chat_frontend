@@ -6,8 +6,9 @@
 
     //Create Chat Controller, which holds the messages and the rooms
     app.controller('chatController', function () {
-        this.messages = dummyMessages;
         this.myMessage = "";
+        this.myRoom = "Lobby";
+        this.messages = dummyMessages;
         this.rooms = dummyRooms;
         this.openRoom = function (room) {
             console.log("Joining Room: " + room.room);
