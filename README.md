@@ -1,7 +1,7 @@
 # Chat Frontend
 Assignment for the Webengineering Class @ DHBW Stuttgart
 
-## Chat Backend
+### Chat Backend
 The backend was provided and can be found here:
 https://github.com/Lhdang88/cloud_computing_ws
 
@@ -13,5 +13,15 @@ https://material.angularjs.org/latest/
 https://github.com/AngularClass/angular-websocket
 
 ### Icons
-All used Icons are from https://material.io/icons/
+All used Icons are from [Material Icons]
 
+### Tech
+
+To create this chat the following libraries were used:
+
+* [AngularJS] - HTML UI Framework
+* [Angular Material] - reference implementation of the Material Design for AngularJS
+
+[AngularJS]: <http://angularjs.org>
+[Angular Material]: <http://material.angularjs.org>
+[Material Icons]: <https://material.io/icons/>

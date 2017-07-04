@@ -8,179 +8,20 @@
     <link rel="stylesheet prefetch" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body ng-app="chat" ng-controller="chatController as chatCtrl" ng-cloak>
-<!-- Main Container for the whole Window-->
-<div id="mainContainer">
-    <!-- Navigation Container -->
-    <div id="roomContainer">
-        <md-content>
-            <md-list flex>
-                <md-list-item class="md-3-line" ng-repeat="room in chatCtrl.rooms" ng-click="null">
-                    <img ng-src="assets/ic_chat_black_48px.svg" class="md-avatar" alt="test" />
-                    <div class="md-list-item-text" layout="column">
-                        <h3>{{room.room}}</h3>
-                        <h4>{{room.lastUser}}</h4>
-                        <p>{{room.lastMessage}}</p>
-                    </div>
-                </md-list-item>
-            </md-list>
-        </md-content>
+<body ng-app="chat" ng-controller="chatController as chatCtrl" ng-cloak layout="row">
+
+<div layout="column" flex>
+    <!-- Chat Toolbar at the top -->
+    <chat-toolbar></chat-toolbar>
+
+    <!-- Main screen -->
+    <div id="mainContainer" flex layout="row">
+        <!-- Sidebar -->
+        <chat-sidebar layout="column"></chat-sidebar>
+        <chat-area layout="column" flex></chat-area>
     </div>
-
-    <!-- Chat Box Container-->
-    <div id="chatContainer">
-        <div id="chatHeader">
-            <div class="name">Chat Assignment</div>
-            <div class="members"><b>You</b> & David</div>
-        </div>
-        <div id="messagesContainer">
-            <ol class="chat">
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">User1<span class="range admin">Admin</span></div>
-                        <p>Dude</p>
-                        <p>Want to go dinner? <emoji class="pizza"></emoji></p>
-                        <time>20:17</time>
-                    </div>
-                </li>
-                <li class="self">
-                    <div class="msg">
-                        <p>Puff...</p>
-                        <p>I'm still doing the Góngora comment... <emoji class="books"></emoji></p>
-                        <p>Better other day</p>
-                        <time>20:18</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">User2</div>
-                        <p>What comment about Góngora? <emoji class="suffocated"></emoji></p>
-                        <time>20:18</time>
-                    </div>
-                </li>
-                <li class="self">
-                    <div class="msg">
-                        <p>The comment sent Marialu</p>
-                        <p>It's for tomorrow</p>
-                        <time>20:18</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">User2</div>
-                        <p><emoji class="scream"></emoji></p>
-                        <p>Hand it to me! <emoji class="please"></emoji></p>
-                        <time>20:18</time>
-                    </div>
-                </li>
-                <li class="self">
-                    <div class="msg">
-                        <img src="https://i.imgur.com/kUPxcsI.jpg" draggable="false"/>
-                        <time>20:19</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">User2</div>
-                        <p>Thank you! <emoji class="hearth_blue"></emoji></p>
-                        <time>20:20</time>
-                    </div>
-                </li>
-                <div class="day">Today</div>
-                <li class="self">
-                    <div class="msg">
-                        <p>Who wants to play Minecraft?</p>
-                        <time>18:03</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">Andreas</div>
-                        <p>Come on, I didn't play it for four months</p>
-                        <time>18:07</time>
-                    </div>
-                </li>
-                <li class="self">
-                    <div class="msg">
-                        <p>Ehh, the launcher crash... <emoji class="cryalot"></emoji></p>
-                        <time>18:08</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">Andreas</div>
-                        <p><emoji class="lmao"></emoji></p>
-                        <p>Sure that is the base code</p>
-                        <p>I told it to Mojang</p>
-                        <time>18:08</time>
-                    </div>
-                </li>
-                <li class="self">
-                    <div class="msg">
-                        <p>It's a joke</p>
-                        <p>Moai attack!</p>
-                        <p><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji><emoji class="moai"></emoji></p>
-                        <time>18:10</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">Andreas</div>
-                        <p>XD</p>
-                        <p><emoji class="funny"></emoji></p>
-                        <p>Heart for this awesome design!</p>
-                        <time>18:08</time>
-                    </div>
-                </li>
-                <p class="notification">David joined the group <time>18:09</time></p>
-                <li class="self">
-                    <div class="msg">
-                        <p>Heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellooooooooooooooooooooooooooooooo David <emoji class="smile"/></p>
-                        <time>18:09</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">David</div>
-                        <p>What is that <emoji class="shit"></emoji> ?</p>
-                        <time>18:10</time>
-                    </div>
-                </li>
-                <p class="notification">David left the group <time>18:11</time></p>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">User2</div>
-                        <p>Lol?</p>
-                        <time>18:12</time>
-                    </div>
-                </li>
-                <li class="other">
-                    <div class="msg">
-                        <div class="user">User1<span class="range admin">Admin</span></div>
-                        <p>I'm boring...</p>
-                        <p>Who wants to do some logarithms? <emoji class="smile"></emoji></p>
-                        <time>18:15</time>
-                    </div>
-                </li>
-            </ol>
-        </div>
-        <div id="inputContainer">
-            <form name="chat-input">
-                <!-- Input -->
-                <md-input-container id="input_message">
-                    <input  required>
-                </md-input-container>
-                <!-- Button with SVG Icon -->
-                <md-button id="button_send" class="md-icon-button send" aria-label="Send">
-                    <md-icon md-svg-icon="assets/ic_send_black_48px.svg"></md-icon>
-                </md-button>
-            </form>
-        </div>
-
-    </div>
-
-
 </div>
+
 
 <!-- Angularjs Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -191,6 +32,7 @@
 
 <!-- Javascript -->
 <script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/customDirectives.js"></script>
 
 </body>
 </html>
