@@ -1,10 +1,9 @@
 <div layout="row" flex>
     <md-content style="background-color: #DCDCDC;" id="chat-content" scroll-glue>
         <md-list>
-            <md-list-item ng-repeat="message in messages" style="margin-top: 8px; margin-bottom: 8px;">
-                <div flex-order="{{message.user ? 2 : 0}}" layout="column" layout-align="center center" class="md-caption">
-                    <!-- <img layout="row" style="margin-right: 3px;" ng-src="{{message.avatar}}" class="md-avatar"></img>-->
-                    <label layout="row" style="padding-left: 8px;" class="md-avater circle">{{chatCtrl.getFirstLetter(message.user) | uppercase}}</label>
+            <md-list-item ng-repeat="message in messages" style="margin-left: 8px; margin-top: 8px; margin-bottom: 8px;">
+                <div flex-order="{{chatCtrl.isOwnMessage(message.user)}}" layout="column" layout-align="center center" class="md-caption">
+                    <label layout="row" style="padding-left: 8px; padding-right: 30px;" class="md-avater circle">{{chatCtrl.getFirstLetter(message.user) | uppercase}}</label>
                     <div style="text-align: center; color: #5F5F5F;">
                         {{message.user}}
                     </div>

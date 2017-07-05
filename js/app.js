@@ -115,6 +115,15 @@
         this.getFirstLetter = function(input) {
             return input.substring(0,1);
         };
+        this.isOwnMessage = function (user) {
+            var flexOrder = 0;
+
+            if(user === $scope.myUser) {
+                flexOrder = 2;
+            }
+
+            return flexOrder;
+        };
         this.emojiClick = function(){
             $('#messageInput').emojiPicker({
                 width: '400px',
