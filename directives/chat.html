@@ -1,10 +1,10 @@
 <div layout="row" flex>
-    <md-content style="background-color: #DCDCDC;" id="chat-content">
+    <md-content style="background-color: #DCDCDC;" id="chat-content" scroll-glue>
         <md-list>
-            <md-list-item ng-repeat="message in chatCtrl.messages" style="margin-top: 8px; margin-bottom: 8px;">
+            <md-list-item ng-repeat="message in messages" style="margin-top: 8px; margin-bottom: 8px;">
                 <div flex-order="{{message.user ? 2 : 0}}" layout="column" layout-align="center center" class="md-caption">
                     <!-- <img layout="row" style="margin-right: 3px;" ng-src="{{message.avatar}}" class="md-avatar"></img>-->
-                    <label layout="row" style="padding-left: 8px;" class="md-avater circle">{{chatCtrl.getFirstLetter(message.user)}}</label>
+                    <label layout="row" style="padding-left: 8px;" class="md-avater circle">{{chatCtrl.getFirstLetter(message.user) | uppercase}}</label>
                     <div style="text-align: center; color: #5F5F5F;">
                         {{message.user}}
                     </div>
@@ -22,7 +22,7 @@
     </md-button>
     <md-input-container style="padding: 10px;" flex layout-align="center" layout-fill>
             <label>Message your Friends!</label>
-            <input id="messageInput" type="text" ng-model="chatCtrl.myMessage">
+            <input id="messageInput" type="text" ng-model="myMessage">
     </md-input-container>
     <md-button class="md-fab md-primary" aria-label="Send Message">
         <md-icon class=material-icons">send</md-icon>
