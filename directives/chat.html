@@ -17,9 +17,12 @@
     </md-content>
 </div>
 <form layout="row" style="padding: 20px;" ng-submit="chatCtrl.sendMessage()" autocomplete="off">
+    <md-button id="emojiButton" class="md-fab md-mini md-primary" aria-label="Emoji Picker" ng-click="chatCtrl.emojiClick()">
+        <md-icon class="material-icons">face</md-icon>
+    </md-button>
     <md-input-container style="padding: 10px;" flex layout-align="center" layout-fill>
             <label>Message your Friends!</label>
-            <input type="text" ng-model="chatCtrl.myMessage">
+            <input id="messageInput" type="text" ng-model="chatCtrl.myMessage">
     </md-input-container>
     <md-button class="md-fab md-primary" aria-label="Send Message">
         <md-icon class=material-icons">send</md-icon>

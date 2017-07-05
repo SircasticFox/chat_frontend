@@ -27,6 +27,15 @@
             var scrollH = list.prop('scrollHeight');
             list.animate({scrollTop: scrollH}, 500);
         };
+        this.emojiClick = function(){
+            $('#messageInput').emojiPicker({
+                width: '600px',
+                height: '350px',
+                button: false
+
+            });
+            $('#messageInput').emojiPicker('toggle');
+        };
     });
 
 
