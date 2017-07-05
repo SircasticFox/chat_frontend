@@ -1,9 +1,10 @@
-html, body {
-    font-family: 'Roboto', serif;
-}
-
 #chat-content {
     width: 100%;
+}
+
+#userIdent {
+    width: 90px;
+    height: 69px;
 }
 
 .circle {
