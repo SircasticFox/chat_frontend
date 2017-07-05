@@ -207,14 +207,18 @@
       elOffset.top += this.$el.outerHeight();
 
       // Step 3
-      var diffOffset = {
+      /*var diffOffset = {
         top: (elOffset.top - parentOffset.top),
         left: (elOffset.left - parentOffset.top)
-      };
+      };*/
+      var diffOffset = {
+         top: 0,
+         left: 0
+       };
 
       this.$picker.css({
-        top: diffOffset.top,
-        left: diffOffset.left
+          top: diffOffset.top,
+          left: diffOffset.left
       });
 
       return this;
