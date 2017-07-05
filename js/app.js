@@ -38,7 +38,6 @@
                 socket.send(JSON.stringify({
                     "action": "postMessage",
                     "roomId": room,
-                    //"userId": "receiverUser_for_postPrivateMessage",
                     "user": sender,
                     "message": message,
                     "meta": { "": ""} // additional data to pass
@@ -46,7 +45,7 @@
             },
             sendPrivateMessage: function (receiver, message, sender) {
                 socket.send(JSON.stringify({
-                    "action": ["postPrivateMessage"],
+                    "action": "postPrivateMessage",
                     "userId": receiver,
                     "user": sender,
                     "message": message,
@@ -83,6 +82,13 @@
             //Message Data
             else if(data.length > 0){
                 data.forEach(function (mes) {
+                    //Check if user is in global user list
+                    //if not add him with the next free color
+                    if($scope.userList.indexOf(mes.user) === -1){
+                        $scope.userList.push(mes.user);
+                    }
+
+                    //Push message to Array
                     $scope.messages.push(mes);
                 });
             }
@@ -94,12 +100,16 @@
         $scope.myRoom = "";
         $scope.myUser = "Hackerman";
         $scope.myMessage = "";
+        $scope.userList = [];
 
         this.joinRoom = function (index) {
             var room = $scope.rooms[index];
             $scope.myRoom = room;
             //Clean Messages
+            $scope.userList = [];
             $scope.messages = [];
+            //Add Own User Again
+            $scope.userList.push($scope.myUser);
             //request messages for that specific room
             ws.getMessages(room);
             console.log("Joining Room: " + room);
@@ -112,6 +122,26 @@
             //Reset my Message after Sending
             $scope.myMessage = "";
         };
+
+        this.getUserColor = function (user) {
+            var myColor;
+
+            if(user === $scope.myUser){
+                myColor = colorStyles[0];
+            }
+            else {
+                var index = $scope.userList.indexOf(user) % 17;
+                myColor = colorStyles[index];
+            }
+
+            //return color style of specific user
+            return myColor;
+        };
+
+        this.getRoomColor = function () {
+            return colorStyles[colorStyles.length - 1];
+        };
+
         this.getFirstLetter = function(input) {
             return input.substring(0,1);
         };
@@ -133,5 +163,66 @@
             $('#messageInput').emojiPicker('toggle');
         };
     });
+
+    //Google Material Colors
+    var colorStyles = [
+        {
+            'background-color': '#F44336'
+        },
+        {
+            'background-color': '#E91E63'
+        },
+        {
+            'background-color': '#9C27B0'
+        },
+        {
+            'background-color': '#673AB7'
+        },
+        {
+            'background-color': '#3F51B5'
+        },
+        {
+            'background-color': '#3F51B5'
+        },
+        {
+            'background-color': '#03A9F4'
+        },
+        {
+            'background-color': '#00BCD4'
+        },
+        {
+            'background-color': '#009688'
+        },
+        {
+            'background-color': '#4CAF50'
+        },
+        {
+            'background-color': '#8BC34A'
+        },
+        {
+            'background-color': '#CDDC39'
+        },
+        {
+            'background-color': '#FFEB3B'
+        },
+        {
+            'background-color': '#FFC107'
+        },
+        {
+            'background-color': '#FF9800'
+        },
+        {
+            'background-color': '#FF5722'
+        },
+        {
+            'background-color': '#795548'
+        },
+        {
+            'background-color': '#9E9E9E'
+        },
+        {
+            'background-color': '#607D8B'
+        }
+    ];
 
 })();
