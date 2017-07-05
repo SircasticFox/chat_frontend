@@ -233,17 +233,17 @@
     var dummyMessages = [
         {
             user: "User",
-            message: "Message 1",
+            message: "Message 1s 😂",
             timestamp: 1397490980837
         },
         {
             user: "User",
-            message: "Message 2",
+            message: "Message 2 😂",
             timestamp: 1397490980837
         },
         {
             user: "User",
-            message: "Message 3",
+            message: "Message 3 😂",
             timestamp: 1397490980837
         },
         {
