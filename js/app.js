@@ -2,7 +2,11 @@
  * Created by Andreas on 26.06.2017.
  */
 (function() {
-    var app = angular.module('chat', ['ngMaterial', 'ngWebSocket', 'ngAnimate', 'custom-directives', 'luegg.directives']);
+    var app = angular.module('chat', ['ngMaterial', 'ngWebSocket', 'ngAnimate', 'custom-directives', 'luegg.directives'])
+        .config(function ($mdThemingProvider) {
+            $mdThemingProvider.theme('default')
+                .accentPalette('amber'); //Changes the default color palette for the 'md-accent' from standart pink to amber see more: https://material.io/guidelines/style/color.html#color-color-palette
+        });
 
     app.factory('ws', function($websocket) {
         // Open a WebSocket connection
