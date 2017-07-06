@@ -16,11 +16,12 @@
         </md-list>
 
     </md-content>
+
+    <!-- This Part is the Create Room Element -->
     <form layout-padding autocomplete="off">
         <md-input-container>
             <label>Room name</label>
             <input ng-model="myNewRoomName">
-
         </md-input-container>
         <md-button class="md-fab md-primary" ng-click="chatCtrl.createRoom()" ng-disabled="!myNewRoomName" md-colors="{background: 'green-800'}" aria-label="Create">
             <md-icon class="material-icons">create</md-icon>

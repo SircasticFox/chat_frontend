@@ -123,25 +123,18 @@
             ws.getMessages(room);
             console.log("Joining Room: " + room);
         };
+
+        //This function is used to create a room and join it instantly
         this.createRoom = function () {
             var newRoom = $scope.myNewRoomName;
             //console.log("Create ROOM: " + newRoom);
+
             ws.sendPublicMessage(newRoom, $scope.myUser + " joined " + newRoom, "Server: ");
+
+            //To Refresh all Rooms in the Sidebar, the new one instantly appears)
             ws.getRooms();
 
-            /*
-            var lRoomIndex = 0;
-            for(var i=0; i < $scope.rooms.length; i++){
-                console.log("current room: " + $scope.rooms[i] + " searching for: " + $scope.myNewRoomName);
-                if($scope.rooms[i] === $scope.myNewRoomName){
-                    lRoomIndex = i;
-                    i = $scope.rooms.length;
-                }
-            }
-            console.log("Joining room after creation, id: " + lRoomIndex);
-            this.joinRoom(lRoomIndex);
-            */
-
+            //Reset everything and load the messages again, copied most of it from the function "joinRoom(index)"
             $scope.myRoom = newRoom;
             $scope.userList = [];
             $scope.messages  = [];
@@ -151,6 +144,7 @@
 
             $scope.myNewRoomName = "";
         };
+
         this.sendMessage = function () {
             //Sending Message to websocket
             console.log("Sending Message: " + $scope.myMessage);
