@@ -13,11 +13,11 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Login</label>
-                    <input type="text" name="user" placeholder="Login"  ng-model="authUser" required=""/>
+                    <input type="text" name="user" placeholder="Login"  ng-model="authUser" required/>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Password</label>
-                    <input type="password" name="password" placeholder="Password" ng-model="authPassword" required="" md-maxlength="16"/>
+                    <input type="password" name="password" placeholder="Password" ng-model="authPassword" required md-maxlength="16"/>
                 </md-input-container>
                 <md-button ng-disabled="!inputForm.$valid" ng-click="chatCtrl.login()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
             </form>

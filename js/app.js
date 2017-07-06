@@ -60,7 +60,7 @@
     });
 
     //Create Chat Controller, which holds the messages and the rooms
-    app.controller('chatController', function ($scope, ws) {
+    app.controller('chatController', function ($scope, $mdDialog, ws) {
         //Set OnMessage Event for the Websockets
         ws.onMessageListener = function(message){
             console.log("Received Message: " + message.data);
@@ -155,7 +155,14 @@
                 }
                 else if(this.readyState === 4 && this.status === 401) {
                     //Authentication Failed / Invalid User
-
+                    $mdDialog.show(
+                        $mdDialog.alert()
+                            .parent(angular.element(document.querySelector('#loginBox')))
+                            .clickOutsideToClose(true)
+                            .title('Authentication Failed')
+                            .textContent('The provided User or Password is wrong. Please provide correct credentials.')
+                            .ariaLabel('Wrong credentials Dialog')
+                            .ok('Got it!'));
                 }
             };
             request.open("GET", httpBaseUrl);
