@@ -1,6 +1,6 @@
 (function() {
-    const baseUrl = "5.45.105.154:3000";
-    //const baseUrl = "localhost:3000";
+    //const baseUrl = "5.45.105.154:3000";
+    const baseUrl = "localhost:3000";
 
     var app = angular.module('chat', ['ngMaterial', 'ngWebSocket', 'ngAnimate', 'custom-directives', 'luegg.directives']);
 
@@ -160,7 +160,6 @@
             };
             request.open("GET", httpBaseUrl);
             request.setRequestHeader("Authorization", "Basic " + hash);
-            //request.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:63342");
             request.send();
         };
 
