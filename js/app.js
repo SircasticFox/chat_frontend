@@ -1,13 +1,12 @@
-/**
- * Created by Andreas on 26.06.2017.
- */
 (function() {
+    const baseUrl = "5.45.105.154:3000";
+    //const baseUrl = "localhost:3000";
+
     var app = angular.module('chat', ['ngMaterial', 'ngWebSocket', 'ngAnimate', 'custom-directives', 'luegg.directives']);
 
     app.factory('ws', function($websocket) {
         var socket;
         // Websocket Endpoint
-        var baseUrl = "5.45.105.154:3000";
         var wsBaseUrl = "ws://" + baseUrl + "/chat";
 
         var wsCalls = {
@@ -139,8 +138,30 @@
 
         };
 
-        this.openConnection = function () {
-            ws.openWebsocketConnection();
+        this.login = function () {
+            var token = $scope.authUser + ":" + $scope.authPassword;
+            var hash = btoa(token);
+
+            var httpBaseUrl = "http://" + baseUrl + "/api/chats";
+            // New XMLHTTPRequest
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    //Valid User
+                    //Log-In
+                    $scope.loggedIn = true;
+                    //Open Websocket Connection
+                    ws.openWebsocketConnection();
+                }
+                else if(this.readyState === 4 && this.status === 401) {
+                    //Authentication Failed / Invalid User
+
+                }
+            };
+            request.open("GET", httpBaseUrl);
+            request.setRequestHeader("Authorization", "Basic " + hash);
+            //request.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:63342");
+            request.send();
         };
 
         this.joinRoom = function (index) {
