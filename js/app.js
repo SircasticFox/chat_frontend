@@ -64,12 +64,16 @@
         ws.onMessageListener = function(message){
             console.log("Received Message: " + message.data);
             var data = JSON.parse(message.data);
+
             //Room Data
             if(data.length > 0 && !data[0].hasOwnProperty('user')) {
+                //Clear Rooms
+                $scope.rooms = [];
                 //Adding Rooms to List
                 data.forEach(function (room) {
                     $scope.rooms.push(room);
                 });
+                $scope.$apply();
             }
             else if(data.hasOwnProperty('action')){
                 var newMessage = {
@@ -83,6 +87,8 @@
             }
             //Message Data
             else if(data.length > 0){
+                //Fixes double "join" message when a room was created and joined
+                $scope.messages = [];
                 data.forEach(function (mes) {
                     //Check if user is in global user list
                     //if not add him with the next free color
@@ -92,6 +98,7 @@
 
                     //Push message to Array
                     $scope.messages.push(mes);
+
                 });
             }
         };
@@ -116,7 +123,34 @@
             ws.getMessages(room);
             console.log("Joining Room: " + room);
         };
+        this.createRoom = function () {
+            var newRoom = $scope.myNewRoomName;
+            //console.log("Create ROOM: " + newRoom);
+            ws.sendPublicMessage(newRoom, $scope.myUser + " joined " + newRoom, "Server: ");
+            ws.getRooms();
 
+            /*
+            var lRoomIndex = 0;
+            for(var i=0; i < $scope.rooms.length; i++){
+                console.log("current room: " + $scope.rooms[i] + " searching for: " + $scope.myNewRoomName);
+                if($scope.rooms[i] === $scope.myNewRoomName){
+                    lRoomIndex = i;
+                    i = $scope.rooms.length;
+                }
+            }
+            console.log("Joining room after creation, id: " + lRoomIndex);
+            this.joinRoom(lRoomIndex);
+            */
+
+            $scope.myRoom = newRoom;
+            $scope.userList = [];
+            $scope.messages  = [];
+            $scope.userList.push(($scope.myUser));
+
+            ws.getMessages(newRoom);
+
+            $scope.myNewRoomName = "";
+        };
         this.sendMessage = function () {
             //Sending Message to websocket
             console.log("Sending Message: " + $scope.myMessage);

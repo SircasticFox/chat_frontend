@@ -1,5 +1,5 @@
 <md-sidenav md-component-id="sidebar" md-no-ink
-            md-is-locked-open="true" class="md-whiteframe-z2" flex>
+            md-is-locked-open="true" class="md-whiteframe-z2" flex  layout="column" >
 
     <md-content id="roomContainer">
         <md-list>
@@ -11,7 +11,21 @@
                         {{room}}
                     </div>
                 </md-button>
+
             </md-list-item>
         </md-list>
+
     </md-content>
+    <form layout-padding autocomplete="off">
+        <md-input-container>
+            <label>Room name</label>
+            <input ng-model="myNewRoomName">
+
+        </md-input-container>
+        <md-button class="md-fab md-primary" ng-click="chatCtrl.createRoom()" ng-disabled="!myNewRoomName" md-colors="{background: 'green-800'}" aria-label="Create">
+            <md-icon class="material-icons">create</md-icon>
+        </md-button>
+    </form>
+
+
 </md-sidenav>
