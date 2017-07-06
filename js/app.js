@@ -130,7 +130,7 @@
                 myColor = colorStyles[0];
             }
             else {
-                var index = $scope.userList.indexOf(user) % 17;
+                var index = $scope.userList.indexOf(user) % 18;
                 myColor = colorStyles[index];
             }
 
