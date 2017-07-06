@@ -6,10 +6,13 @@
 
     app.factory('ws', function($websocket) {
         var socket;
+        // Websocket Endpoint
+        var baseUrl = "5.45.105.154:3000";
+        var wsBaseUrl = "ws://" + baseUrl + "/chat";
 
         var wsCalls = {
-            openWebsocketConnection: function (url) {
-                socket = $websocket(url);
+            openWebsocketConnection: function () {
+                socket = $websocket(wsBaseUrl);
 
                 socket.onMessage(function(message) {
                     wsCalls.onMessageListener(message);
@@ -137,11 +140,7 @@
         };
 
         this.openConnection = function () {
-            // Open a WebSocket connection
-            var baseUrl = "5.45.105.154:3000";
-            var wsBaseUrl = "ws://" + baseUrl + "/chat";
-
-            ws.openWebsocketConnection(wsBaseUrl);
+            ws.openWebsocketConnection();
         };
 
         this.joinRoom = function (index) {

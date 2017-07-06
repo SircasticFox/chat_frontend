@@ -28,8 +28,10 @@
     </div>
 </div>
 
-<!-- Show Loggin Window if not logged in -->
-<login-window ng-show="!loggedIn" layout="column" layout-align="center center" layout-padding="layout-padding"></login-window>
+<!-- Show Login Screen if not logged in -->
+<div ng-show="!loggedIn" layout="column" layout-align="center center" flex >
+    <login-window></login-window>
+</div>
 
 <!-- Angularjs Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
