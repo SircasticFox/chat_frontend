@@ -78,6 +78,8 @@
                     "timestamp": Date.now()
                 };
                 $scope.messages.push(newMessage);
+                //Notify about new message
+                $scope.notifyNewMessage(newMessage);
             }
             //Message Data
             else if(data.length > 0){
@@ -131,6 +133,12 @@
             }
             else {
                 var index = $scope.userList.indexOf(user) % 18;
+                //If user is not in the list, add him to list
+                if(index === -1) {
+                    $scope.userList.push(user);
+                    //Get Index again after adding
+                    index = $scope.userList.indexOf(user) % 18;
+                }
                 myColor = colorStyles[index];
             }
 
@@ -145,6 +153,7 @@
         this.getFirstLetter = function(input) {
             return input.substring(0,1);
         };
+
         this.isOwnMessage = function (user) {
             var flexOrder = 0;
 
@@ -154,6 +163,37 @@
 
             return flexOrder;
         };
+
+        $scope.notifyNewMessage = function (message) {
+            //Only show notification if it's another user's message
+            if(!(message.user === $scope.myUser)) {
+                console.log("Showing Notification");
+
+                var options = {
+                    body: message.message
+                };
+
+                //check if the browser supports notifications
+                if (!("Notification" in window)) {
+                    //If it's not supported don't do anything
+                }
+                //check whether notification permissions have already been granted
+                else if (Notification.permission === "granted") {
+                    var notification = new Notification(message.user, options);
+                }
+
+                // Otherwise ask the user for permission
+                else if (Notification.permission !== "denied") {
+                    Notification.requestPermission(function (permission) {
+                        if (permission === "granted") {
+                            var notification = new Notification(message.user, options);
+                        }
+                    });
+                }
+            }
+
+        };
+
         this.emojiClick = function(){
             $('#messageInput').emojiPicker({
                 width: '400px',
