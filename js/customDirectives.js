@@ -23,3 +23,10 @@ app.directive("chatArea", function() {
         templateUrl: "directives/chat.html"
     };
 });
+
+app.directive("loginWindow", function() {
+    return {
+        restrict: "E",
+        templateUrl: "directives/login.html"
+    };
+});
