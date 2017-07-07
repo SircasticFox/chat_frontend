@@ -18,7 +18,6 @@
                 });
                 socket.onOpen(function (message) {
                     console.log("Opened Websocket Connection");
-                    wsCalls.getRooms();
                 });
                 socket.onClose(function (message) {
                     console.log("Closed Websocket Connection");
@@ -152,6 +151,15 @@
                     $scope.loggedIn = true;
                     //Open Websocket Connection
                     ws.openWebsocketConnection();
+
+                    //Instead of getting the rooms when the Websocket connection has opened,
+                    //we can use the answer from the http request and save the first websocket call.
+                    var data = JSON.parse(request.responseText);
+                    //Adding Rooms to List
+                    data.forEach(function (room) {
+                        $scope.rooms.push(room);
+                    });
+
                 }
                 else if(this.readyState === 4 && this.status === 401) {
                     //Authentication Failed / Invalid User
