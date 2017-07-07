@@ -1,13 +1,20 @@
 <!-- Toolbar -->
 <md-toolbar layout="row">
+    <div layout="row" layout-margin layout-align="left center" style="float: right;">
+        <!-- <img ng-src="assets/ic_send_black_48px.svg" class="md-avatar" style="height: 40px; width: auto;"></img> -->
+        <label ng-style="chatCtrl.getUserColor(myUser)" class="md-avatar circle">{{chatCtrl.getFirstLetter(myUser)| uppercase}}</label>
+        {{myUser}}
+    </div>
 
     <div layout="row" flex layout-margin layout-align="center center">
         {{myRoom}}
     </div>
-    <div layout="row" layout-margin layout-align="right center" style="float: right;">
-        {{myUser}}
-        <!-- <img ng-src="assets/ic_send_black_48px.svg" class="md-avatar" style="height: 40px; width: auto;"></img> -->
-        <label ng-style="chatCtrl.getUserColor(myUser)" class="md-avatar circle">{{chatCtrl.getFirstLetter(myUser)| uppercase}}</label>
+
+    <div layout="root" layout-margin layout-align="right center">
+        <md-button class="md-raised md-warn" ng-click="chatCtrl.logout()">Logout</md-button>
     </div>
+
+
+
 
 </md-toolbar>

@@ -190,7 +190,14 @@
             console.log("Sending Auth Request");
             request.send();
         };
+        this.logout = function () {
+            $scope.loggedIn = false;
+            $scope.authUser = "";
+            $scope.authPassword = "";
 
+            //Not need, if activated Angular throws an error
+           // $scope.$apply();
+        }
         this.joinRoom = function (index) {
             var room = $scope.rooms[index];
             $scope.myRoom = room;
