@@ -162,12 +162,15 @@
                     //we can use the answer from the http request and save the first websocket call.
                     var data = JSON.parse(request.responseText);
                     //Adding Rooms to List
+                    //Rooms array needs a reset, otherwise angular throws an error because rooms exists multiple times
+                    $scope.rooms = [];
                     data.forEach(function (room) {
                         $scope.rooms.push(room);
                     });
 
                     //Log-In
                     $scope.loggedIn = true;
+
                     $scope.$apply();
                     //Open Websocket Connection
                     ws.openWebsocketConnection();
