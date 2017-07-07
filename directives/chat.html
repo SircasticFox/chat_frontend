@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div flex-order = "1" style="background-color: white; padding: 10px; border-radius: 5px; margin-right: 10px;" layout-fill>
-                    {{message.message}}
+                    {{message.message}} <i style="float: right; color: gray; font-size: 80%;">{{message.timestamp | date:'HH:mm'}}</i>
                 </div>
             </md-list-item>
         </md-list>
