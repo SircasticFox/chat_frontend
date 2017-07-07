@@ -19,3 +19,7 @@
     text-align: right;
     float: right;
 }
+
+.login-form {
+    width: 500px;
+}

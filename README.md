@@ -2,7 +2,15 @@
 Assignment for the Webengineering Class @ DHBW Stuttgart
 
 ### Chat Backend
-The [Backend] was provided.
+The [Backend] was provided. For a successful authentication, the Backend
+has to be modified to allow CORS, otherwise all authentication requests
+will fail. A Fork with the necessary changes can be found here:
+https://github.com/dhbw-stginf16a/cloud_computing_ws
+
+### Authentication
+For a successful authentication you have to provide the default user 'dhbw'
+with the password 'dhbw-pw' or set Environment Variables as described
+in the backend repository.
 
 ### Angular Material:
 https://material.angularjs.org/latest/
