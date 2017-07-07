@@ -184,7 +184,7 @@ $.fn.emojiPicker.emojis = [
   },
   {
     "name": "sunglasses",
-    "unicode": {"apple":"", "google":"", "twitter":"1F60E"},
+    "unicode": {"apple":"1F60E", "google":"1F60E", "twitter":"1F60E"},
     "shortcode": "sunglasses",
     "description": "SMILING FACE WITH SUNGLASSES",
     "category": "people"
