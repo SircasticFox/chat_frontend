@@ -1,7 +1,6 @@
 <md-sidenav md-component-id="sidebar" md-no-ink
             md-is-locked-open="true" class="md-whiteframe-z2" flex  layout="column" >
-
-    <md-content id="roomContainer">
+    <md-content id="roomContainer" flex>
         <md-list>
             <md-list-item ng-repeat="room in rooms">
                 <md-button flex ng-click="chatCtrl.joinRoom($index)">
@@ -18,8 +17,8 @@
     </md-content>
 
     <!-- This Part is the Create Room Element -->
-    <form layout-padding autocomplete="off">
-        <md-input-container>
+    <form layout="row" style="padding: 20px;" autocomplete="off">
+        <md-input-container flex layout-align="center">
             <label>Room name</label>
             <input ng-model="myNewRoomName">
         </md-input-container>

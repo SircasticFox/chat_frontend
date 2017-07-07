@@ -226,11 +226,13 @@
         };
 
         this.sendMessage = function () {
-            //Sending Message to websocket
-            console.log("Sending Message: " + $scope.myMessage);
-            ws.sendPublicMessage($scope.myRoom, $scope.myMessage, $scope.myUser);
-            //Reset my Message after Sending
-            $scope.myMessage = "";
+            if(!($scope.myMessage === "")) {
+                //Sending Message to websocket
+                console.log("Sending Message: " + $scope.myMessage);
+                ws.sendPublicMessage($scope.myRoom, $scope.myMessage, $scope.myUser);
+                //Reset my Message after Sending
+                $scope.myMessage = "";
+            }
         };
 
         this.getUserColor = function (user) {

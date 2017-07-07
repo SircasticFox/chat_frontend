@@ -21,9 +21,9 @@
     </md-button>
     <md-input-container flex layout-align="center" layout-fill>
             <label>Message your ""Friends""!</label>
-            <input id="messageInput" type="text" ng-model="myMessage" required>
+            <input id="messageInput" type="text" ng-model="myMessage">
     </md-input-container>
-    <md-button class="md-fab md-primary" aria-label="Send Message" ng-click="chatCtrl.sendMessage()" ng-disabled="!inputForm.$valid">
+    <md-button class="md-fab md-primary" aria-label="Send Message" ng-click="chatCtrl.sendMessage()" ng-disabled="!myMessage">
         <md-icon class=material-icons">send</md-icon>
     </md-button>
 </form>
