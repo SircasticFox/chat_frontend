@@ -21,13 +21,15 @@
                     wsCalls.onMessageListener(message);
                 });
                 socket.onOpen(function (message) {
+
                     console.log("Opened Websocket Connection");
                 });
                 socket.onClose(function (message) {
-                    console.log("Closed Websocket Connection");
+                    wsCalls.onCloseListener(message);
                 });
             },
             onMessageListener: null,
+            onCloseListener: null,
             getRooms: function() {
                 socket.send(JSON.stringify({
                     "action": "getChatRooms"
@@ -108,6 +110,20 @@
                     $scope.me.messages.push(mes);
                 });
             }
+        };
+        ws.onCloseListener = function (message) {
+            console.log("Closed Websocket Connection");
+            //Logout user on websocket closed
+            $scope.me.logout();
+            //Show Dialog that you were logged out because the websocket was disconnected.
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#loginBox')))
+                    .clickOutsideToClose(true)
+                    .title('Disconnected')
+                    .textContent('You were disconnected from the server.')
+                    .ariaLabel('Disconnected Dialog')
+                    .ok('Ok'));
         };
 
         //Controller Data
