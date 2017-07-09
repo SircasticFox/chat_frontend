@@ -80,14 +80,18 @@
                 $scope.$apply();
             }
             else if(data.hasOwnProperty('action')){
-                var newMessage = {
-                    "user": data.user,
-                    "message": data.message,
-                    "timestamp": Date.now()
-                };
-                $scope.me.messages.push(newMessage);
-                //Notify about new message
-                $scope.me.notifyNewMessage(newMessage);
+                //Check which room this message belongs to
+                //only push if it's the current room
+                if(data.roomId === $scope.me.myRoom) {
+                    var newMessage = {
+                        "user": data.user,
+                        "message": data.message,
+                        "timestamp": Date.now()
+                    };
+                    $scope.me.messages.push(newMessage);
+                    //Notify about new message
+                    $scope.me.notifyNewMessage(newMessage);
+                }
             }
             //Message Data
             else if(data.length > 0){
