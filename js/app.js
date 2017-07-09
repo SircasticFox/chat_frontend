@@ -21,7 +21,7 @@
                     wsCalls.onMessageListener(message);
                 });
                 socket.onOpen(function (message) {
-
+                    wsCalls.onOpenListener(message);
                     console.log("Opened Websocket Connection");
                 });
                 socket.onClose(function (message) {
@@ -30,6 +30,7 @@
             },
             onMessageListener: null,
             onCloseListener: null,
+            onOpenListener: null,
             getRooms: function() {
                 socket.send(JSON.stringify({
                     "action": "getChatRooms"
@@ -111,6 +112,13 @@
                 });
             }
         };
+
+        ws.onOpenListener = function () {
+            if($scope.me.rooms[0] != null){
+                $scope.me.joinRoom(0);
+            }
+        };
+
         ws.onCloseListener = function (message) {
             console.log("Closed Websocket Connection");
             //Logout user on websocket closed
