@@ -33,6 +33,6 @@ To create this chat the following libraries were used:
 [Angular Material]: <http://material.angularjs.org>
 [Material Icons]: <https://material.io/icons/>
 [Backend]: <https://github.com/Lhdang88/cloud_computing_ws>
-[JQuery Emoji Picker]: <https://www.npmjs.com/package/jquery-emoji-picker>
+[JQuery Emoji Picker]: <https://github.com/wedgies/jquery-emoji-picker>
 [angularjs-scroll-glue]: <https://github.com/Luegg/angularjs-scroll-glue>
 [Angular Websocket]: <https://github.com/AngularClass/angular-websocket>

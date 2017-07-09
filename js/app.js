@@ -72,10 +72,10 @@
             //Room Data
             if(data.length > 0 && !data[0].hasOwnProperty('user')) {
                 //Clear Rooms
-                $scope.rooms = [];
+                $scope.me.rooms = [];
                 //Adding Rooms to List
                 data.forEach(function (room) {
-                    $scope.rooms.push(room);
+                    $scope.me.rooms.push(room);
                 });
                 $scope.$apply();
             }
@@ -85,41 +85,42 @@
                     "message": data.message,
                     "timestamp": Date.now()
                 };
-                $scope.messages.push(newMessage);
+                $scope.me.messages.push(newMessage);
                 //Notify about new message
-                $scope.notifyNewMessage(newMessage);
+                $scope.me.notifyNewMessage(newMessage);
             }
             //Message Data
             else if(data.length > 0){
                 //Fixes double "join" message when a room was created and joined
-                $scope.messages = [];
+                $scope.me.messages = [];
                 data.forEach(function (mes) {
                     //Check if user is in global user list
                     //if not add him with the next free color
-                    if($scope.userList.indexOf(mes.user) === -1){
-                        $scope.userList.push(mes.user);
+                    if($scope.me.userList.indexOf(mes.user) === -1){
+                        $scope.me.userList.push(mes.user);
                     }
 
                     //Push message to Array
-                    $scope.messages.push(mes);
+                    $scope.me.messages.push(mes);
                 });
             }
         };
 
         //Controller Data
-        $scope.rooms = [];
-        $scope.messages = [];
-        $scope.myRoom = "";
-        $scope.myUser = "";
-        $scope.myMessage = "";
-        $scope.userList = [];
-        $scope.loggedIn = false;
-        $scope.authUser = "";
-        $scope.authPassword ="";
+        $scope.me = this;
+        this.rooms = [];
+        this.messages = [];
+        this.myRoom = "";
+        this.myUser = "";
+        this.myMessage = "";
+        this.userList = [];
+        this.loggedIn = false;
+        this.authUser = "";
+        this.authPassword ="";
 
-        $scope.notifyNewMessage = function (message) {
+        this.notifyNewMessage = function (message) {
             //Only show notification if it's another user's message
-            if(!(message.user === $scope.myUser)) {
+            if(!(message.user === $scope.me.myUser)) {
                 console.log("Showing Notification");
 
                 var options = {
@@ -148,7 +149,7 @@
         };
 
         this.login = function () {
-            var token = $scope.authUser + ":" + $scope.authPassword;
+            var token = $scope.me.authUser + ":" + $scope.me.authPassword;
             var hash = btoa(token);
 
             var httpBaseUrl = "http://" + baseUrl + "/api/chats";
@@ -163,15 +164,16 @@
                     var data = JSON.parse(request.responseText);
                     //Adding Rooms to List
                     //Rooms array needs a reset, otherwise angular throws an error because rooms exists multiple times
-                    $scope.rooms = [];
+                    $scope.me.rooms = [];
                     data.forEach(function (room) {
-                        $scope.rooms.push(room);
+                        $scope.me.rooms.push(room);
                     });
 
                     //Log-In
-                    $scope.loggedIn = true;
-
+                    $scope.me.loggedIn = true;
+                    //Bindings need to be updated here
                     $scope.$apply();
+
                     //Open Websocket Connection
                     ws.openWebsocketConnection();
                 }
@@ -195,22 +197,22 @@
         };
 
         this.logout = function () {
-            $scope.loggedIn = false;
-            $scope.authUser = "";
-            $scope.authPassword = "";
-
-            //Not need, if activated Angular throws an error
-           // $scope.$apply();
+            $scope.me.loggedIn = false;
+            $scope.me.authUser = "";
+            $scope.me.authPassword = "";
+            //Reset Message and Room Form as well
+            $scope.me.myNewRoomName = "";
+            $scope.me.myMessage = "";
         };
 
         this.joinRoom = function (index) {
-            var room = $scope.rooms[index];
-            $scope.myRoom = room;
+            var room = $scope.me.rooms[index];
+            $scope.me.myRoom = room;
             //Clean Messages
-            $scope.userList = [];
-            $scope.messages = [];
+            $scope.me.userList = [];
+            $scope.me.messages = [];
             //Add Own User Again
-            $scope.userList.push($scope.myUser);
+            $scope.me.userList.push($scope.myUser);
             //request messages for that specific room
             ws.getMessages(room);
             console.log("Joining Room: " + room);
@@ -218,48 +220,48 @@
 
         //This function is used to create a room and join it instantly
         this.createRoom = function () {
-            var newRoom = $scope.myNewRoomName;
+            var newRoom = $scope.me.myNewRoomName;
             //console.log("Create ROOM: " + newRoom);
 
-            ws.sendPublicMessage(newRoom, $scope.myUser + " joined " + newRoom, "Server");
+            ws.sendPublicMessage(newRoom, $scope.me.myUser + " joined " + newRoom, "Server");
 
             //To Refresh all Rooms in the Sidebar, the new one instantly appears)
             ws.getRooms();
 
             //Reset everything and load the messages again, copied most of it from the function "joinRoom(index)"
-            $scope.myRoom = newRoom;
-            $scope.userList = [];
-            $scope.messages  = [];
-            $scope.userList.push(($scope.myUser));
+            $scope.me.myRoom = newRoom;
+            $scope.me.userList = [];
+            $scope.me.messages  = [];
+            $scope.me.userList.push(($scope.myUser));
 
             ws.getMessages(newRoom);
 
-            $scope.myNewRoomName = "";
+            $scope.me.myNewRoomName = "";
         };
 
         this.sendMessage = function () {
-            if(!($scope.myMessage === "")) {
+            if(!($scope.me.myMessage === "")) {
                 //Sending Message to websocket
-                console.log("Sending Message: " + $scope.myMessage);
-                ws.sendPublicMessage($scope.myRoom, $scope.myMessage, $scope.myUser);
+                console.log("Sending Message: " + $scope.me.myMessage);
+                ws.sendPublicMessage($scope.me.myRoom, $scope.me.myMessage, $scope.me.myUser);
                 //Reset my Message after Sending
-                $scope.myMessage = "";
+                $scope.me.myMessage = "";
             }
         };
 
         this.getUserColor = function (user) {
             var myColor;
 
-            if(user === $scope.myUser){
+            if(user === $scope.me.myUser){
                 myColor = colorStyles[0];
             }
             else {
-                var index = $scope.userList.indexOf(user) % 18;
+                var index = $scope.me.userList.indexOf(user) % 18;
                 //If user is not in the list, add him to list
                 if(index === -1) {
-                    $scope.userList.push(user);
+                    $scope.me.userList.push(user);
                     //Get Index again after adding
-                    index = $scope.userList.indexOf(user) % 18;
+                    index = $scope.me.userList.indexOf(user) % 18;
                 }
                 myColor = colorStyles[index];
             }
@@ -279,7 +281,7 @@
         this.isOwnMessage = function (user) {
             var flexOrder = 0;
 
-            if(user === $scope.myUser) {
+            if(user === $scope.me.myUser) {
                 flexOrder = 2;
             }
 

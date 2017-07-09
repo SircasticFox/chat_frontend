@@ -16,7 +16,7 @@
 <body ng-app="chat" ng-controller="chatController as chatCtrl" ng-cloak layout="row">
 
 <!--- Show chat if logged in -->
-<div ng-show="loggedIn" layout="column" flex>
+<div ng-if="chatCtrl.loggedIn" layout="column" flex>
     <!-- Chat Toolbar at the top -->
     <chat-toolbar></chat-toolbar>
 
@@ -29,8 +29,8 @@
 </div>
 
 <!-- Show Login Screen if not logged in -->
-<div ng-show="!loggedIn" layout="column" layout-align="center center" flex >
-    <login-window id="loginBox" ></login-window>
+<div ng-if="!chatCtrl.loggedIn" layout="column" layout-align="center center" flex >
+    <login-window id="loginBox"></login-window>
 </div>
 
 <!-- Angularjs Libraries -->
