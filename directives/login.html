@@ -19,7 +19,7 @@
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Password" ng-model="chatCtrl.authPassword" required md-maxlength="16"/>
                 </md-input-container>
-                <md-button ng-disabled="!loginForm.$valid" ng-click="chatCtrl.login()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
+                <md-button type="submit" ng-disabled="!loginForm.$valid" ng-click="chatCtrl.login()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
 
                 <!-- REMOVE IF PUBLISHED -->
                 <md-button ng-click="chatCtrl.devLogin()" class="md-raised md-warn">&nbsp Developer Login &nbsp</md-button>
