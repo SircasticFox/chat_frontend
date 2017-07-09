@@ -152,6 +152,14 @@
 
         };
 
+        //TEMPORARY
+        this.devLogin = function () {
+            $scope.me.myUser = 'user12';
+            $scope.me.authUser = 'dhbw';
+            $scope.me.authPassword = 'dhbw-pw';
+        };
+
+
         this.login = function () {
             var token = $scope.me.authUser + ":" + $scope.me.authPassword;
             var hash = btoa(token);
