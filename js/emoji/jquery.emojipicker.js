@@ -184,36 +184,34 @@
     },
 
     updatePosition: function() {
+        var top = 0;
+        var left = 0;
 
-      /*  Process:
-          1. Find the nearest positioned element by crawling up the ancestors, record it's offset
-          2. Find the bottom left or right of the input element, record this (Account for position setting of left or right)
-          3. Find the difference between the two, as this will become our new position
-          4. Magic.
+        // Step 1
+        //Get Height of the Topbar
+        var element = document.getElementById('toolbar');
+        var pos = element.getBoundingClientRect();
+        top+= pos.height;
 
-          N.B. The removed code had a reference to top/bottom positioning, but I don't see the use case for this..
-      */
+        //Step 2
+        //Get Width of the Sidebar
+        element = document.getElementById('sidebar');
+        pos = element.getBoundingClientRect();
+        left+= pos.width;
 
-      // Step 1
-      // Luckily jquery already does this...
-      var positionedParent = this.$picker.offsetParent();
-      var parentOffset = positionedParent.offset(); // now have a top/left object
+        //Step 3
+        //Get Height of the MessageArea
+        element = document.getElementById('messagesWindow');
+        pos = element.getBoundingClientRect();
+        top+= pos.height;
 
-      // Step 2
-      var elOffset = this.$el.offset();
-      if(this.settings.position == 'right'){
-        elOffset.left += this.$el.outerWidth() - this.settings.width;
-      }
-      elOffset.top += this.$el.outerHeight();
+        //Step4
+        //Subtract the height of the picker itself
+        top -= 246;
 
-      // Step 3
-      /*var diffOffset = {
-        top: (elOffset.top - parentOffset.top),
-        left: (elOffset.left - parentOffset.top)
-      };*/
       var diffOffset = {
-         top: 0,
-         left: 0
+         top: top,
+         left: left
        };
 
       this.$picker.css({
