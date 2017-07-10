@@ -259,7 +259,7 @@
             var newRoom = $scope.me.myNewRoomName;
             //console.log("Create ROOM: " + newRoom);
 
-            ws.sendPublicMessage(newRoom, $scope.me.myUser + " joined " + newRoom, "Server");
+            ws.sendPublicMessage(newRoom, $scope.me.myUser + " created " + newRoom, "Server");
 
             //To Refresh all Rooms in the Sidebar, the new one instantly appears)
             ws.getRooms();
