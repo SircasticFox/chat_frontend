@@ -1,22 +1,23 @@
 <div id="messagesWindow" layout="row" flex>
-    <md-content style="background-color: #DCDCDC;" id="chat-content" scroll-glue>
+    <md-content id="contentChat" scroll-glue flex>
         <md-list>
-            <md-list-item ng-repeat="message in chatCtrl.messages" style="margin-left: 8px; margin-top: 8px; margin-bottom: 8px;">
-                <div id="userIdent" style="margin-left: 8px; margin-right: 8px" flex-order="{{chatCtrl.isOwnMessage(message.user)}}" layout="column" layout-align="center center" class="md-caption">
+            <md-list-item id="contentItem" ng-repeat="message in chatCtrl.messages">
+                <div id="userIdent" flex-order="{{chatCtrl.isOwnMessage(message.user)}}" layout="column" layout-align="center center" class="md-caption">
                     <div class="md-avater circle" ng-style="chatCtrl.getUserColor(message.user)">{{chatCtrl.getFirstLetter(message.user) | uppercase}}</div>
-                    <div style="text-align: center; color: #5F5F5F;">
+                    <div id="contentUser">
                         {{message.user}}
                     </div>
                 </div>
-                <div flex-order = "1" style="background-color: white; padding: 10px; border-radius: 5px; margin-right: 10px;" layout-fill>
-                    {{message.message}} <i style="float: right; color: gray; font-size: 80%;">{{message.timestamp | date:'HH:mm'}}</i>
+                <div id="contentMessage" flex-order = "1" layout-fill>
+                    {{message.message}}
+                    <i id="contentTimestamp">{{message.timestamp | date:'HH:mm'}}</i>
                 </div>
             </md-list-item>
         </md-list>
     </md-content>
 </div>
-<form name="inputForm" layout="row" style="padding: 20px;" ng-submit="chatCtrl.sendMessage()" autocomplete="off" novalidate>
-    <md-button style="margin: 10px;" id="emojiButton" class="md-fab md-mini md-primary" aria-label="Emoji Picker" ng-click="chatCtrl.emojiClick()">
+<form name="inputForm" class="formPadding" layout="row" ng-submit="chatCtrl.sendMessage()" autocomplete="off" novalidate>
+    <md-button class="md-fab md-mini md-primary" aria-label="Emoji Picker" ng-click="chatCtrl.emojiClick()">
         <md-icon class="material-icons">face</md-icon>
     </md-button>
     <md-input-container flex layout-align="center" layout-fill>

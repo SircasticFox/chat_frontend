@@ -1,12 +1,53 @@
-#chat-content {
-    width: 100%;
+/****** Chat ******/
+#contentChat {
+    background-color: #DCDCDC;
+}
+
+#contentItem {
+    margin-left: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#contentUser {
+    text-align: center;
+    color: #5F5F5F;
+}
+
+#contentMessage {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#contentTimestamp {
+    float: right;
+    color: gray;
+    font-size: 80%;
 }
 
 #userIdent {
     width: 90px;
     height: 69px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
+/*******************/
 
+/****** Toolbar ******/
+#toolbarAvatar {
+    float: right;
+}
+/*******************/
+
+/****** Login Form ******/
+.login-form {
+    width: 500px;
+}
+/*******************/
+
+/****** General ******/
 .circle {
     border-radius: 20px;
     width: 40px;
@@ -15,11 +56,7 @@
     font-size: 24pt;
 }
 
-.align-right{
-    text-align: right;
-    float: right;
+.formPadding {
+    padding: 20px;
 }
-
-.login-form {
-    width: 500px;
-}
+/*******************/
