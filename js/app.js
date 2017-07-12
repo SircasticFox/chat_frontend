@@ -1,6 +1,6 @@
 (function() {
-    const baseUrl = "5.45.105.154:3000";
-    //const baseUrl = "localhost:3000";
+    //const baseUrl = "5.45.105.154:3000";
+    const baseUrl = "localhost:3000";
 
     var app = angular.module('chat', ['ngMaterial', 'ngWebSocket', 'ngAnimate', 'custom-directives', 'luegg.directives'])
         .config(function ($mdThemingProvider) {
@@ -22,11 +22,13 @@
                 });
                 socket.onOpen(function (message) {
                     wsCalls.onOpenListener(message);
-                    console.log("Opened Websocket Connection");
                 });
                 socket.onClose(function (message) {
                     wsCalls.onCloseListener(message);
                 });
+            },
+            closeWebsocketConnection: function() {
+                socket.close();
             },
             onMessageListener: null,
             onCloseListener: null,
@@ -114,6 +116,7 @@
         };
 
         ws.onOpenListener = function () {
+            console.log("Opened Websocket Connection");
             if($scope.me.rooms[0] != null){
                 $scope.me.joinRoom(0);
             }
@@ -122,15 +125,35 @@
         ws.onCloseListener = function (message) {
             console.log("Closed Websocket Connection");
             //Logout user on websocket closed
-            $scope.me.logout();
-            //Show Dialog that you were logged out because the websocket was disconnected.
+            $scope.me.logout(false);
+
+            //Set Dialog Text
+            var title;
+            var text;
+            var ariaLab;
+
+            if($scope.me.userLogout){
+                //Set Different Dialog Text
+                title = 'Logged Out';
+                text = 'You have been logged out successfully';
+                ariaLab = 'Logged Out Dialog';
+                //Reset to default
+                $scope.me.userLogout = false;
+            }
+            else {
+                title = 'Disconnected';
+                text = 'You were disconnected from the server.';
+                ariaLab = 'Disconnected Dialog';
+            }
+
+            //Show Dialog that you were logged out
             $mdDialog.show(
                 $mdDialog.alert()
                     .parent(angular.element(document.querySelector('#loginBox')))
                     .clickOutsideToClose(true)
-                    .title('Disconnected')
-                    .textContent('You were disconnected from the server.')
-                    .ariaLabel('Disconnected Dialog')
+                    .title(title)
+                    .textContent(text)
+                    .ariaLabel(ariaLab)
                     .ok('Ok'));
         };
 
@@ -145,6 +168,7 @@
         this.loggedIn = false;
         this.authUser = "";
         this.authPassword ="";
+        this.userLogout = false;
 
         this.notifyNewMessage = function (message) {
             //Only show notification if it's another user's message
@@ -232,13 +256,22 @@
             request.send();
         };
 
-        this.logout = function () {
+        this.logout = function (closeWebsocket) {
             $scope.me.loggedIn = false;
             $scope.me.authUser = "";
             $scope.me.authPassword = "";
             //Reset Message and Room Form as well
             $scope.me.myNewRoomName = "";
             $scope.me.myMessage = "";
+
+            //Close the websocket if the logout was triggered by the user
+            //(and not from the disconnect)
+            if(closeWebsocket) {
+                //set userLogout to true
+                //(used to show a different Dialog)
+                $scope.me.userLogout = true;
+                ws.closeWebsocketConnection();
+            }
         };
 
         this.joinRoom = function (index) {
