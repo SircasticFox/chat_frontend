@@ -82,6 +82,7 @@
         this.authUser = "";
         this.authPassword ="";
         this.userLogout = false;
+        this.myEmoji = null;
 
         //Set OnMessage Event for the Websockets
         ws.onMessageListener = function(message){
@@ -134,6 +135,9 @@
             if($scope.me.rooms[0] != null){
                 $scope.me.joinRoom(0);
             }
+
+            //init emoji
+            $scope.me.emojiInit();
         };
 
         ws.onCloseListener = function (message) {
@@ -406,14 +410,21 @@
             return flexOrder;
         };
 
-        //Opens an emoji popup
+        //Init Emoji popup window
+        this.emojiInit = function () {
+            if($scope.me.myEmoji === null) {
+                $scope.me.myEmoji = $('#messageInput');
+                $scope.me.myEmoji.emojiPicker({
+                    width: '400px',
+                    height: '200px',
+                    button: false
+                });
+            }
+        };
+
+        //Opens/Closes the emoji popup
         this.emojiClick = function(){
-            $('#messageInput').emojiPicker({
-                width: '400px',
-                height: '200px',
-                button: false
-            });
-            $('#messageInput').emojiPicker('toggle');
+            $scope.me.myEmoji.emojiPicker('toggle');
         };
     });
 
