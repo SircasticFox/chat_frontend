@@ -202,13 +202,6 @@
 
         };
 
-        //TEMPORARY
-        this.devLogin = function () {
-            $scope.me.myUser = 'user12';
-            $scope.me.authUser = 'dhbw';
-            $scope.me.authPassword = 'dhbw-pw';
-        };
-
         //Login with credentials
         this.login = function () {
             var token = $scope.me.authUser + ":" + $scope.me.authPassword;
