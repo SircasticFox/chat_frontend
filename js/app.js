@@ -144,31 +144,24 @@
             //Set Dialog Text
             var title;
             var text;
-            var ariaLab;
+            var altText;
 
             if($scope.me.userLogout){
                 //Set Different Dialog Text
                 title = 'Logged Out';
                 text = 'You have been logged out successfully';
-                ariaLab = 'Logged Out Dialog';
+                altText = 'Logged Out Dialog';
                 //Reset to default
                 $scope.me.userLogout = false;
             }
             else {
                 title = 'Disconnected';
                 text = 'You were disconnected from the server.';
-                ariaLab = 'Disconnected Dialog';
+                altText = 'Disconnected Dialog';
             }
 
             //Show Dialog that you were logged out
-            $mdDialog.show(
-                $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#loginBox')))
-                    .clickOutsideToClose(true)
-                    .title(title)
-                    .textContent(text)
-                    .ariaLabel(ariaLab)
-                    .ok('Ok'));
+            $scope.me.showMessageDialog(title, text, altText);
         };
 
         //Shows Notifcations
@@ -202,8 +195,32 @@
 
         };
 
+        //Shows a small Dialog box with different information
+        this.showMessageDialog = function (title, message, altText) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#loginBox')))
+                    .clickOutsideToClose(true)
+                    .title(title)
+                    .textContent(message)
+                    .ariaLabel(altText)
+                    .ok('Ok'));
+        };
+
         //Login with credentials
         this.login = function () {
+            //Detect if fetch is available
+            if (self.fetch) {
+                console.log("Authenticate using fetch");
+                $scope.me.loginWithFetch();
+            } else {
+                console.log("Authenticate using XMLHttpRequest");
+                $scope.me.loginWithXMLHttpRequest();
+            }
+        };
+
+        //Use the old XMLHttpRequest if browser doesn't support fetch
+        this.loginWithXMLHttpRequest = function () {
             var token = $scope.me.authUser + ":" + $scope.me.authPassword;
             var hash = btoa(token);
 
@@ -212,43 +229,73 @@
             var request = new XMLHttpRequest();
             request.onreadystatechange = function() {
                 if (this.readyState === 4 && this.status === 200) {
-                    //Valid User
-                    console.log("Authentication Succeeded");
-                    //Instead of getting the rooms when the Websocket connection has opened,
-                    //we can use the answer from the http request and save the first websocket call.
                     var data = JSON.parse(request.responseText);
-                    //Adding Rooms to List
-                    //Rooms array needs a reset, otherwise angular throws an error because rooms exists multiple times
-                    $scope.me.rooms = [];
-                    data.forEach(function (room) {
-                        $scope.me.rooms.push(room);
-                    });
-
-                    //Log-In
-                    $scope.me.loggedIn = true;
-                    //Bindings need to be updated here
-                    $scope.$apply();
-
-                    //Open Websocket Connection
-                    ws.openWebsocketConnection();
+                    $scope.me.onLoginSuccessful(data);
                 }
                 else if(this.readyState === 4 && this.status === 401) {
                     //Authentication Failed / Invalid User
                     console.log("Authentication Failed");
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                            .parent(angular.element(document.querySelector('#loginBox')))
-                            .clickOutsideToClose(true)
-                            .title('Authentication Failed')
-                            .textContent('The provided User or Password is wrong. Please provide correct credentials.')
-                            .ariaLabel('Wrong credentials Dialog')
-                            .ok('Got it!'));
+                    $scope.me.showMessageDialog('Authentication Failed',
+                        'The provided User or Password is wrong. Please provide correct credentials.',
+                        'Wrong credentials Dialog');
                 }
             };
             request.open("GET", httpBaseUrl);
             request.setRequestHeader("Authorization", "Basic " + hash);
-            console.log("Sending Auth Request");
             request.send();
+        };
+
+        //Use fetch if available
+        this.loginWithFetch = function () {
+            var httpBaseUrl = "http://" + baseUrl + "/api/chats";
+            var token = $scope.me.authUser + ":" + $scope.me.authPassword;
+            var hash = btoa(token);
+
+            var header = new Headers();
+            header.append("Authorization", "Basic " + hash);
+
+            var options = {
+                method: 'GET',
+                headers: header
+            };
+
+            fetch(httpBaseUrl, options).then(function(response) {
+                var statusCode = response.status;
+
+                //Response
+                if(statusCode === 200) {
+                    response.json().then(function (data) {
+                        $scope.me.onLoginSuccessful(data);
+                    });
+                }
+                else if(statusCode === 401){
+                    //Authentication Failed / Invalid User
+                    console.log("Authentication Failed");
+                    $scope.me.showMessageDialog('Authentication Failed',
+                        'The provided User or Password is wrong. Please provide correct credentials.',
+                        'Wrong credentials Dialog');
+                }
+            });
+        };
+
+        //If the login is successful
+        this.onLoginSuccessful = function (data) {
+            //Valid User
+            console.log("Authentication Succeeded");
+            //Adding Rooms to List
+            //Rooms array needs a reset, otherwise angular throws an error because rooms exists multiple times
+            $scope.me.rooms = [];
+            data.forEach(function (room) {
+                $scope.me.rooms.push(room);
+            });
+
+            //Log-In
+            $scope.me.loggedIn = true;
+            //Bindings need to be updated here
+            $scope.$apply();
+
+            //Open Websocket Connection
+            ws.openWebsocketConnection();
         };
 
         //Logout user (form reset and websocket disconnect
