@@ -10,22 +10,20 @@ For a successful authentication you have to provide the default user 'dhbw'
 with the password 'dhbw-pw' or set Environment Variables as described
 in the backend repository.
 
-### Angular Material:
-https://material.angularjs.org/latest/
-
-### Icons
-All Icons are [Material Icons]
+### Angular Material & Icons
+[Angular Material] & [Material Icons] (also see Tech)
 
 ### Tech
 
-To create this chat the following libraries were used:
+To accomplish all its functionalities this chat frontend uses several
+open source libraries & frameworks.
 
 * [AngularJS] - HTML UI Framework
-* [Angular Material] - reference implementation of the Material Design for AngularJS
+* [Angular Material] - a reference implementation of the Material Design for AngularJS
 * [Angular Websocket] - Websocket Module for AngularJS
-* [Material Icons] - Huge amount of great Material Icons
-* [JQuery Emoji Picker] - Provides a popup Window for selecting Emojis
-* [angularjs-scroll-glue] - Scrolls Automatically on new Messages
+* [Material Icons] - Material Icon Library (works great with Angular Material)
+* [JQuery Emoji Picker] - Popup Window for selecting Emojis
+* [angularjs-scroll-glue] - scroll automatically on content updates
 
 [AngularJS]: <http://angularjs.org>
 [Angular Material]: <http://material.angularjs.org>
