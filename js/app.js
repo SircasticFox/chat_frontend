@@ -69,6 +69,20 @@
 
     //Create Chat Controller, which holds the messages and the rooms
     app.controller('chatController', function ($scope, $mdDialog, ws) {
+
+        //Controller Data
+        $scope.me = this;
+        this.rooms = [];
+        this.messages = [];
+        this.myRoom = "";
+        this.myUser = "";
+        this.myMessage = "";
+        this.userList = [];
+        this.loggedIn = false;
+        this.authUser = "";
+        this.authPassword ="";
+        this.userLogout = false;
+
         //Set OnMessage Event for the Websockets
         ws.onMessageListener = function(message){
             console.log("Received Message: " + message.data);
@@ -157,19 +171,7 @@
                     .ok('Ok'));
         };
 
-        //Controller Data
-        $scope.me = this;
-        this.rooms = [];
-        this.messages = [];
-        this.myRoom = "";
-        this.myUser = "";
-        this.myMessage = "";
-        this.userList = [];
-        this.loggedIn = false;
-        this.authUser = "";
-        this.authPassword ="";
-        this.userLogout = false;
-
+        //Shows Notifcations
         this.notifyNewMessage = function (message) {
             //Only show notification if it's another user's message
             if(!(message.user === $scope.me.myUser)) {
@@ -207,7 +209,7 @@
             $scope.me.authPassword = 'dhbw-pw';
         };
 
-
+        //Login with credentials
         this.login = function () {
             var token = $scope.me.authUser + ":" + $scope.me.authPassword;
             var hash = btoa(token);
@@ -256,6 +258,7 @@
             request.send();
         };
 
+        //Logout user (form reset and websocket disconnect
         this.logout = function (closeWebsocket) {
             $scope.me.loggedIn = false;
             $scope.me.authUser = "";
@@ -274,6 +277,7 @@
             }
         };
 
+        //Open a selected room
         this.joinRoom = function (index) {
             var room = $scope.me.rooms[index];
             $scope.me.myRoom = room;
@@ -308,6 +312,7 @@
             $scope.me.myNewRoomName = "";
         };
 
+        //Send Message to the most recent room
         this.sendMessage = function () {
             if(!($scope.me.myMessage === "")) {
                 //Sending Message to websocket
@@ -318,6 +323,7 @@
             }
         };
 
+        //Get the color for the user avatar
         this.getUserColor = function (user) {
             var myColor;
 
@@ -339,14 +345,17 @@
             return myColor;
         };
 
+        //Get the color for the room avater
         this.getRoomColor = function () {
             return colorStyles[colorStyles.length - 1];
         };
 
+        //returns the first letter of any given string
         this.getFirstLetter = function(input) {
             return input.substring(0,1);
         };
 
+        //Checks if the user is the own user
         this.isOwnMessage = function (user) {
             var flexOrder = 0;
 
@@ -357,6 +366,7 @@
             return flexOrder;
         };
 
+        //Opens an emoji popup
         this.emojiClick = function(){
             $('#messageInput').emojiPicker({
                 width: '400px',
