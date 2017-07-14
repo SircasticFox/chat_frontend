@@ -84,7 +84,7 @@
         this.userLogout = false;
         this.myEmoji = null;
 
-        //Set OnMessage Event for the Websockets
+        //Set Websocket Listeners
         ws.onMessageListener = function(message){
             console.log("Received Message: " + message.data);
             var data = JSON.parse(message.data);
@@ -129,7 +129,6 @@
                 });
             }
         };
-
         ws.onOpenListener = function () {
             console.log("Opened Websocket Connection");
             if($scope.me.rooms[0] != null){
@@ -139,7 +138,6 @@
             //init emoji
             $scope.me.emojiInit();
         };
-
         ws.onCloseListener = function (message) {
             console.log("Closed Websocket Connection");
             //Logout user on websocket closed

@@ -27,6 +27,7 @@ To create this chat the following libraries were used:
 * [Angular Websocket] - Websocket Module for AngularJS
 * [Material Icons] - Huge amount of great Material Icons
 * [JQuery Emoji Picker] - Provides a popup Window for selecting Emojis
+(customized the positioning for this project)
 * [angularjs-scroll-glue] - Scrolls Automatically on new Messages
 
 [AngularJS]: <http://angularjs.org>
