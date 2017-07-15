@@ -152,7 +152,7 @@
         ws.onOpenListener = function () {
             console.log("Opened Websocket Connection");
             if($scope.me.rooms[0] != null){
-                $scope.me.joinRoom(0);
+                $scope.me.joinRoom($scope.me.rooms[0]);
             }
 
             //init emoji
