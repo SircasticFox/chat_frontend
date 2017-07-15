@@ -28,4 +28,11 @@
             templateUrl: "directives/login.html"
         };
     });
+
+    app.directive("userSidebar", function() {
+        return {
+            restrict: "E",
+            templateUrl: "directives/users.html"
+        };
+    });
 })();

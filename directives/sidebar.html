@@ -1,12 +1,12 @@
 <md-sidenav id="sidebar" md-component-id="sidebar" md-no-ink
-            md-is-locked-open="true" class="md-whiteframe-z2" flex  layout="column" >
+            md-is-locked-open="true" md-whiteframe="2" flex  layout="column" >
     <!-- Room List -->
     <md-content id="roomContainer" flex>
         <md-list>
             <md-list-item ng-repeat="room in chatCtrl.rooms | orderBy">
-                <md-button flex ng-click="chatCtrl.joinRoom($index)">
+                <md-button flex ng-click="chatCtrl.joinRoom(room)">
                     <div layout="row" layout-align="left center">
-                        <div ng-style="chatCtrl.getRoomColor()" class="md-avatar circle">{{chatCtrl.getFirstLetter(room)}}</div>
+                        <div ng-style="chatCtrl.getRoomColor()" md-whiteframe="2" class="md-avatar circle">{{chatCtrl.getFirstLetter(room)}}</div>
                         {{room}}
                     </div>
                 </md-button>

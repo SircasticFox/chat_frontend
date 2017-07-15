@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 <md-toolbar id="toolbar" layout="row">
     <div id="toolbarAvatar" layout="row" layout-margin layout-align="left center">
-        <label ng-style="chatCtrl.getUserColor(myUser)" class="md-avatar circle">{{chatCtrl.getFirstLetter(chatCtrl.myUser)| uppercase}}</label>
+        <label ng-style="chatCtrl.getUserColor(chatCtrl.myUser)" md-whiteframe="2" class="md-avatar circle">{{chatCtrl.getFirstLetter(chatCtrl.myUser)| uppercase}}</label>
         {{chatCtrl.myUser}}
     </div>
 

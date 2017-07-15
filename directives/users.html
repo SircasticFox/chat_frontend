@@ -1,0 +1,13 @@
+<md-sidenav id="userList" md-no-ink md-is-locked-open="true" class="md-sidenav-right" md-whiteframe="2" flex  layout="column" >
+    <!-- Room List -->
+    <md-content id="userContainer" flex>
+        <md-list>
+            <md-list-item ng-repeat="user in chatCtrl.userList | orderBy">
+                <div layout="row" layout-align="end center" flex>
+                    {{user}}
+                    <div ng-style="chatCtrl.getUserColor(user)" md-whiteframe="2" class="md-avatar circle">{{chatCtrl.getFirstLetter(user) | uppercase}}</div>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>

@@ -3,7 +3,7 @@
         <md-list>
             <md-list-item id="contentItem" ng-repeat="message in chatCtrl.messages">
                 <div id="userIdent" flex-order="{{chatCtrl.isOwnMessage(message.user)}}" layout="column" layout-align="center center" class="md-caption">
-                    <div class="md-avater circle" ng-style="chatCtrl.getUserColor(message.user)">{{chatCtrl.getFirstLetter(message.user) | uppercase}}</div>
+                    <div class="md-avater circle" md-whiteframe="2" ng-style="chatCtrl.getUserColor(message.user)">{{chatCtrl.getFirstLetter(message.user) | uppercase}}</div>
                     <div id="contentUser">
                         {{message.user}}
                     </div>

@@ -2,10 +2,11 @@
 Assignment for the Webengineering Class @ DHBW Stuttgart
 
 ### Chat Backend
-The [Backend] was provided. For a successful authentication, the Backend
-has to be modified to allow CORS, otherwise all authentication requests
-will fail. A Fork with the necessary changes can be found here:
-https://github.com/dhbw-stginf16a/cloud_computing_ws
+A simple [Backend] for the chat application was provided and isn't part
+of the assignment. Due to a bad websocket implementation, this chat client requires a fork of the backend,
+which allows to distinguish between the websocket requests that were made.
+([Forked Backend])
+
 
 ### Authentication
 For a successful authentication you have to provide the default user 'dhbw'
@@ -37,3 +38,4 @@ To create this chat the following libraries were used:
 [JQuery Emoji Picker]: <https://github.com/wedgies/jquery-emoji-picker>
 [angularjs-scroll-glue]: <https://github.com/Luegg/angularjs-scroll-glue>
 [Angular Websocket]: <https://github.com/AngularClass/angular-websocket>
+[Forked Backend]: <https://github.com/M320Trololol/cloud_computing_ws>
