@@ -22,14 +22,24 @@ XMLHttpRequest is used.
 - **list chat rooms**: ✅ Chat Rooms are sorted alphabetically and listed
 on the left. Users can create new chat rooms with the form at the bottom.
 
+- **create chat rooms**: ✅ With a simple click one can create a new chat room
+which will be joined immediatly. Also the Client announces, as the server,
+a <user> joined <room> message for better transparency.
+
+- **join chat rooms**: ✅ Another great feature is the ability to join all chat
+rooms, which are known to the client, with just one click.
+
 - **support smileys**: ✅ A popup gives the user the possibility to choose
-between all the emojis he's already familiar with.
+between all the emojis he's already familiar with. The amount of available 
+smileys is hughe and all the smileys do represent verry well at other 
+chat clients.
 
 - **send messages**: ✅ Messages are send via a Websocket connection.
 
 - **display new messages**: ✅ New messages from you and other users are
 displayed right away at the bottom of the conversation history. When a
 new message comes in the client will automatically scroll to the bottom.
+The user can also see the time when the message was sent, which is quiet helpful.
 
 - **display historic messages**: ✅ On opening a chat room the history is
 loaded and displayed right away. The avatar of the own user appears to
@@ -38,13 +48,17 @@ on the left side of the message.
 
 - **list and color users in room**: ✅ Every user gets 1 of 18 Colors
 (where 1 color is reserved for the own user). The Avatar is displayed in
-the User's color.
+the User's color. Furthermore the user list is sorted to improve the usability.
 
 - **feature of our choice**: ✅ The first extra feature is a Desktop
 Notification Service (if confirmed), which is triggered on every new message
 the user receives. The second feature is the display of user's avatars,
 which have the specific user color and always show the first (capital)
-letter of the nickname.
+letter of the nickname. Another feature is the Logout button wich will log the
+current user out, removes all the conversations from the chache and guide the
+user back to the login page where he can login again. Furthermore we implemented
+an popup info field which gives the user important information more quickly, for
+example if the connection to the server was lost or the user successfully logged out.
 
 ### Included Features / Non-Technical
 - **User Experience, Accessability**: ✅ The Chat client shines with an
