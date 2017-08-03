@@ -16,10 +16,10 @@
     </md-content>
 
     <!-- Add Room Form -->
-    <form class="formPadding" layout="row" ng-submit="chatCtrl.createRoom()" autocomplete="off">
+    <form class="formPadding" layout="row" ng-submit="chatCtrl.myNewRoomName && chatCtrl.createRoom()" autocomplete="off">
         <md-input-container flex layout-align="center" layout-fill>
             <label>Room name</label>
-            <input ng-model="chatCtrl.myNewRoomName">
+            <input ng-model="chatCtrl.myNewRoomName" md-maxlength="10">
         </md-input-container>
         <md-button class="md-fab md-accent" ng-click="chatCtrl.createRoom()" ng-disabled="!chatCtrl.myNewRoomName" aria-label="Create">
             <md-icon class="material-icons">create</md-icon>
