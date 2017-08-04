@@ -26,7 +26,7 @@ on the left. Users can create new chat rooms with the form at the bottom.
 chat room which will be opened immediately. Due to the provided backend the user
 still has to send a message to the chat room to join and receive new messages
 send to the room. Also, the Client announces (with the alias 'the System')
-the message '<user> created <room>' when the room is created.
+the message '**_someuser_** created **_someroom_**' when the room is created.
 
 - **support smileys**: A popup gives the user the possibility to choose
 between all the Emojis he's already familiar with from WhatsApp & other
@@ -69,7 +69,9 @@ as intuitive as possible.
 - **proper usage of HTML (appropriate features, validates)**:
 Everything validates fine with the [W3C Validator]. Only the AngularJS
 specific directives are not validating.
-- **proper usage of CSS (appropriate features, validates)**:
+- **proper usage of CSS (appropriate features, validates)**: The written CSS
+validates fine. Due to the used libraries there wasn't a lot of css to
+write though.
 - **proper usage of Javascript (recent features, eslint)**:
 Recent features like fetch were used.
 
