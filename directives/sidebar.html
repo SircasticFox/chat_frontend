@@ -1,12 +1,12 @@
 <md-sidenav id="sidebar" md-component-id="sidebar" md-no-ink
-            md-is-locked-open="true" class="md-whiteframe-z2" flex  layout="column" >
+            md-is-locked-open="true" md-whiteframe="2" flex  layout="column" >
     <!-- Room List -->
     <md-content id="roomContainer" flex>
         <md-list>
             <md-list-item ng-repeat="room in chatCtrl.rooms | orderBy">
-                <md-button flex ng-click="chatCtrl.joinRoom($index)">
+                <md-button flex ng-click="chatCtrl.joinRoom(room)">
                     <div layout="row" layout-align="left center">
-                        <div ng-style="chatCtrl.getRoomColor()" class="md-avatar circle">{{chatCtrl.getFirstLetter(room)}}</div>
+                        <div ng-style="chatCtrl.getRoomColor()" md-whiteframe="2" class="md-avatar circle">{{chatCtrl.getFirstLetter(room)}}</div>
                         {{room}}
                     </div>
                 </md-button>
@@ -16,15 +16,13 @@
     </md-content>
 
     <!-- Add Room Form -->
-    <form class="formPadding" layout="row" ng-submit="chatCtrl.createRoom()" autocomplete="off">
+    <form class="formPadding" layout="row" ng-submit="chatCtrl.myNewRoomName && chatCtrl.createRoom()" autocomplete="off">
         <md-input-container flex layout-align="center" layout-fill>
             <label>Room name</label>
-            <input ng-model="chatCtrl.myNewRoomName">
+            <input ng-model="chatCtrl.myNewRoomName" md-maxlength="10">
         </md-input-container>
         <md-button class="md-fab md-accent" ng-click="chatCtrl.createRoom()" ng-disabled="!chatCtrl.myNewRoomName" aria-label="Create">
             <md-icon class="material-icons">create</md-icon>
         </md-button>
     </form>
-
-
 </md-sidenav>

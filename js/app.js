@@ -1,5 +1,4 @@
 (function() {
-    //const baseUrl = "5.45.105.154:3000";
     const baseUrl = "localhost:3000";
 
     var app = angular.module('chat', ['ngMaterial', 'ngWebSocket', 'ngAnimate', 'custom-directives', 'luegg.directives'])
@@ -44,6 +43,12 @@
                     "roomId": room
                 }));
             },
+            getUsers: function (room) {
+                socket.send(JSON.stringify({
+                    "action": "getUsersInRoom",
+                    "roomId": room
+                }));
+            },
             sendPublicMessage: function (room, message, sender) {
                 socket.send(JSON.stringify({
                     "action": "postMessage",
@@ -84,62 +89,72 @@
         this.userLogout = false;
         this.myEmoji = null;
 
-        //Set OnMessage Event for the Websockets
+        //Set Websocket Listeners
         ws.onMessageListener = function(message){
             console.log("Received Message: " + message.data);
             var data = JSON.parse(message.data);
 
-            //Room Data
-            if(data.length > 0 && !data[0].hasOwnProperty('user')) {
-                //Clear Rooms
-                $scope.me.rooms = [];
-                //Adding Rooms to List
-                data.forEach(function (room) {
-                    $scope.me.rooms.push(room);
-                });
-                $scope.$apply();
-            }
-            else if(data.hasOwnProperty('action')){
-                //Check which room this message belongs to
-                //only push if it's the current room
-                if(data.roomId === $scope.me.myRoom) {
-                    var newMessage = {
-                        "user": data.user,
-                        "message": data.message,
-                        "timestamp": Date.now()
-                    };
-                    $scope.me.messages.push(newMessage);
-                    //Notify about new message
-                    $scope.me.notifyNewMessage(newMessage);
-                }
-            }
-            //Message Data
-            else if(data.length > 0){
-                //Fixes double "join" message when a room was created and joined
-                $scope.me.messages = [];
-                data.forEach(function (mes) {
-                    //Check if user is in global user list
-                    //if not add him with the next free color
-                    if($scope.me.userList.indexOf(mes.user) === -1){
-                        $scope.me.userList.push(mes.user);
-                    }
+            switch (data.action) {
+                case 'getChatRooms':
+                    //Clear Rooms
+                    $scope.me.rooms = [];
+                    //Adding Rooms to List
+                    data.chatRooms.forEach(function (room) {
+                        $scope.me.rooms.push(room);
+                    });
+                    break;
 
-                    //Push message to Array
-                    $scope.me.messages.push(mes);
-                });
+                case 'getMessagesInRoom':
+                    //Fixes double "join" message when a room was created and joined
+                    $scope.me.messages = [];
+                    data.messages.forEach(function (mes) {
+                        //Push message to Array
+                        $scope.me.messages.push(mes);
+                    });
+                    break;
+
+                case 'getUsersInRoom':
+                    //Reset users
+                    $scope.me.userList = [];
+                    //Add all the users to the list
+                    data.users.forEach(function (user) {
+                        //Add at first position if own user
+                        if(user === $scope.me.myUser) {
+                            $scope.me.userList.splice(0, 0, user);
+                        }
+                        //push user to list
+                        else {
+                            $scope.me.userList.push(user);
+                        }
+                    });
+                    break;
+
+                case 'postMessage':
+                    //Check which room this message belongs to
+                    //only push if it's the current room
+                    if(data.roomId === $scope.me.myRoom) {
+                        var response = data.message;
+                        var newMessage = {
+                            "user": response.user,
+                            "message": response.message,
+                            "timestamp": response.timestamp
+                        };
+                        $scope.me.messages.push(newMessage);
+                        //Notify about new message
+                        $scope.me.notifyNewMessage(newMessage);
+
+                        //Update User list
+                        ws.getUsers(data.roomId);
+                    }
+                    break;
             }
         };
-
         ws.onOpenListener = function () {
             console.log("Opened Websocket Connection");
             if($scope.me.rooms[0] != null){
-                $scope.me.joinRoom(0);
+                $scope.me.joinRoom($scope.me.rooms[0]);
             }
-
-            //init emoji
-            $scope.me.emojiInit();
         };
-
         ws.onCloseListener = function (message) {
             console.log("Closed Websocket Connection");
             //Logout user on websocket closed
@@ -322,37 +337,33 @@
         };
 
         //Open a selected room
-        this.joinRoom = function (index) {
-            var room = $scope.me.rooms[index];
-            $scope.me.myRoom = room;
-            //Clean Messages
-            $scope.me.userList = [];
-            $scope.me.messages = [];
-            //Add Own User Again
-            $scope.me.userList.push($scope.myUser);
-            //request messages for that specific room
-            ws.getMessages(room);
-            console.log("Joining Room: " + room);
+        this.joinRoom = function (room) {
+            //Don't open if the room is already open
+            if(!($scope.me.myRoom===room)) {
+                $scope.me.myRoom = room;
+                //request messages for that specific room
+                ws.getMessages(room);
+                //request users for that specific room
+                ws.getUsers(room);
+                //request users for that specific room
+                console.log("Joining Room: " + room);
+            }
         };
 
         //This function is used to create a room and join it instantly
         this.createRoom = function () {
             var newRoom = $scope.me.myNewRoomName;
-            //console.log("Create ROOM: " + newRoom);
 
-            ws.sendPublicMessage(newRoom, $scope.me.myUser + " created " + newRoom, "Server");
+            //Create Room by sending a Message to the Room
+            ws.sendPublicMessage(newRoom, $scope.me.myUser + " created " + newRoom, "the System");
 
             //To Refresh all Rooms in the Sidebar, the new one instantly appears)
             ws.getRooms();
 
-            //Reset everything and load the messages again, copied most of it from the function "joinRoom(index)"
-            $scope.me.myRoom = newRoom;
-            $scope.me.userList = [];
-            $scope.me.messages  = [];
-            $scope.me.userList.push(($scope.myUser));
+            //Join the newly created room
+            $scope.me.joinRoom(newRoom);
 
-            ws.getMessages(newRoom);
-
+            //Reset input field
             $scope.me.myNewRoomName = "";
         };
 
@@ -371,17 +382,12 @@
         this.getUserColor = function (user) {
             var myColor;
 
+            //The own user has a reserved color
             if(user === $scope.me.myUser){
-                myColor = colorStyles[0];
+                myColor = reservedColors[0];
             }
             else {
-                var index = $scope.me.userList.indexOf(user) % 18;
-                //If user is not in the list, add him to list
-                if(index === -1) {
-                    $scope.me.userList.push(user);
-                    //Get Index again after adding
-                    index = $scope.me.userList.indexOf(user) % 18;
-                }
+                var index = $scope.me.userList.indexOf(user) % 17;
                 myColor = colorStyles[index];
             }
 
@@ -391,12 +397,14 @@
 
         //Get the color for the room avater
         this.getRoomColor = function () {
-            return colorStyles[colorStyles.length - 1];
+            return reservedColors[1];
         };
 
         //returns the first letter of any given string
         this.getFirstLetter = function(input) {
-            return input.substring(0,1);
+            if(input !== undefined) {
+                return input.substring(0,1);
+            }
         };
 
         //Checks if the user is the own user
@@ -410,29 +418,29 @@
             return flexOrder;
         };
 
-        //Init Emoji popup window
-        this.emojiInit = function () {
-            if($scope.me.myEmoji === null) {
-                $scope.me.myEmoji = $('#messageInput');
-                $scope.me.myEmoji.emojiPicker({
-                    width: '400px',
-                    height: '200px',
-                    button: false
-                });
-            }
-        };
-
         //Opens/Closes the emoji popup
         this.emojiClick = function(){
-            $scope.me.myEmoji.emojiPicker('toggle');
+            $('#messageInput').emojiPicker({
+                width: '400px',
+                height: '200px',
+                button: false
+            });
+            $('#messageInput').emojiPicker('toggle');
         };
     });
 
     //Google Material Colors
-    var colorStyles = [
+    //19 Colors
+    //2 Reserved, 17 for other Users
+    var reservedColors = [
         {
             'background-color': '#F44336'
         },
+        {
+            'background-color': '#607D8B'
+        }
+    ];
+    var colorStyles = [
         {
             'background-color': '#E91E63'
         },
@@ -483,9 +491,6 @@
         },
         {
             'background-color': '#9E9E9E'
-        },
-        {
-            'background-color': '#607D8B'
         }
     ];
 
