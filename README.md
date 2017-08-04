@@ -14,60 +14,64 @@ For a successful authentication you have to provide the default user
 described in the backend repository.
 
 ### Included Features / Technical
-- **authentication**: ✅ To use the chat client you have to authenticate
+- **authentication**: To use the chat client you have to authenticate
 with the standard user and password. Behind the scenes it uses the
 modern fetch mechanism if available. If fetch is not supported
 XMLHttpRequest is used.
 
-- **list chat rooms**: ✅ Chat Rooms are sorted alphabetically and listed
+- **list chat rooms**: Chat Rooms are sorted alphabetically and listed
 on the left. Users can create new chat rooms with the form at the bottom.
 
-- **create chat rooms**: ✅ With a simple click one can create a new chat room
-which will be joined immediatly. Also the Client announces, as the server,
-a <user> joined <room> message for better transparency.
+- **create chat rooms**: With a simple click the user can create a new
+chat room which will be opened immediately. Due to the provided backend the user
+still has to send a message to the chat room to join and receive new messages
+send to the room. Also, the Client announces (with the alias 'the System')
+the message '<user> created <room>' when the room is created.
 
-- **join chat rooms**: ✅ Another great feature is the ability to join all chat
-rooms, which are known to the client, with just one click.
+- **support smileys**: A popup gives the user the possibility to choose
+between all the Emojis he's already familiar with from WhatsApp & other
+social platforms.
 
-- **support smileys**: ✅ A popup gives the user the possibility to choose
-between all the emojis he's already familiar with. The amount of available 
-smileys is hughe and all the smileys do represent verry well at other 
-chat clients.
+- **send messages**: Messages are send via a Websocket connection. The
+user can either click the send button or hit the return key to send the
+message.
 
-- **send messages**: ✅ Messages are send via a Websocket connection.
-
-- **display new messages**: ✅ New messages from you and other users are
+- **display new messages**: New messages from you and other users are
 displayed right away at the bottom of the conversation history. When a
 new message comes in the client will automatically scroll to the bottom.
-The user can also see the time when the message was sent, which is quiet helpful.
 
-- **display historic messages**: ✅ On opening a chat room the history is
+- **display historic messages**: On opening a chat room the history is
 loaded and displayed right away. The avatar of the own user appears to
 the right of the message, the avatars from every other user are shown
-on the left side of the message.
+on the left side of the message. Further the timestamp of the message is
+displayed as well.
 
-- **list and color users in room**: ✅ Every user gets 1 of 18 Colors
+- **list and color users in room**: Every user gets 1 of 18 Colors
 (where 1 color is reserved for the own user). The Avatar is displayed in
 the User's color. Furthermore the user list is sorted to improve the usability.
 
-- **feature of our choice**: ✅ The first extra feature is a Desktop
+- **feature of our choice**: The first extra feature is a Desktop
 Notification Service (if confirmed), which is triggered on every new message
 the user receives. The second feature is the display of user's avatars,
 which have the specific user color and always show the first (capital)
-letter of the nickname. Another feature is the Logout button wich will log the
-current user out, removes all the conversations from the chache and guide the
-user back to the login page where he can login again. Furthermore we implemented
-an popup info field which gives the user important information more quickly, for
-example if the connection to the server was lost or the user successfully logged out.
+letter of the nickname. Another feature is the Logout button, which will log the
+current user out and throw him back to the login page where he can
+login again (and pick another Nickname if desired). Furthermore we
+implemented a popup window which gives the user immediate feedback.
+The popup appears on Logout, when an invalid password is entered or if the
+Websocket connection is disconnected.
 
 ### Included Features / Non-Technical
-- **User Experience, Accessability**: ✅ The Chat client shines with an
-appealing UI by using a modern Material Design.
-- **proper usage of HTML (appropriate features, validates)**: ✅
-Everything (except the AngularJS specific directives) validates fine
-with the [W3C Validator]
-- **proper usage of CSS (appropriate features, validates)**: ✅
-- **proper usage of Javascript (recent features, eslint)**: ✅
+- **User Experience, Accessability**:  The Chat client shines with an
+appealing UI by using a modern Material Design. Further it accepts the
+return key in the login, room and message form to make the application
+as intuitive as possible.
+- **proper usage of HTML (appropriate features, validates)**:
+Everything validates fine with the [W3C Validator]. Only the AngularJS
+specific directives are not validating.
+- **proper usage of CSS (appropriate features, validates)**:
+- **proper usage of Javascript (recent features, eslint)**:
+Recent features like fetch were used.
 
 ### Tech
 To create this chat the following libraries were used:
