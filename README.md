@@ -27,6 +27,8 @@ chat room which will be opened immediately. Due to the provided backend the user
 still has to send a message to the chat room to join and receive new messages
 send to the room. Also, the Client announces (with the alias 'the System')
 the message '**_someuser_** created **_someroom_**' when the room is created.
+Since the backend doesn't send a message on created chat rooms, the client
+needs to request the list of chat rooms manually (right now every 5 seconds).
 
 - **support smileys**: A popup gives the user the possibility to choose
 between all the Emojis he's already familiar with from WhatsApp & other
