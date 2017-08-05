@@ -73,7 +73,7 @@
     });
 
     //Create Chat Controller, which holds the messages and the rooms
-    app.controller('chatController', function ($scope, $mdDialog, ws) {
+    app.controller('chatController', function ($scope, $interval, $mdDialog, ws) {
 
         //Controller Data
         $scope.me = this;
@@ -182,6 +182,13 @@
             //Show Dialog that you were logged out
             $scope.me.showMessageDialog(title, text, altText);
         };
+
+        //Refresh Roomlist every 5 seoconds
+        $interval(function () {
+            if($scope.me.loggedIn){
+                ws.getRooms();
+            }
+        }, 5000);
 
         //Shows Notifcations
         this.notifyNewMessage = function (message) {
